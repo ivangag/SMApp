@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/google_card_view_checkin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    card_view:cardBackgroundColor="@color/white_transparent"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardUseCompatPadding="true"
+    android:clickable="false"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_margin="4dp">
+
+    <LinearLayout
+        android:id="@+id/viewParentCheckinDetails"
+        android:background="@color/icons"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/viewHeaderCheckInDetails"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_width="match_parent"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtViewCheckInPainLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/abc_text_size_medium_material"
+            android:textColor="@color/accent"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:id="@+id/txtViewCheckInTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DateTime"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/abc_text_size_small_material"
+            android:textColor="@color/secondary_text"
+            android:layout_margin="5dp"
+            />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnCheckInDetailsInfo"
+            android:contentDescription="@string/text_click_more_info_checkin"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/ic_info_outline_grey600_48dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="start"
+            android:visibility="gone"
+            />
+
+        <View
+            android:id="@+id/viewDivider"
+            android:layout_margin="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/Primary_Grey_100"
+            >
+        </View>
+
+        <FrameLayout
+            android:id="@+id/viewCheckInDetails"
+            android:visibility="visible"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ListView
+                android:visibility="visible"
+                android:id="@+id/list_medicines_question"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:divider="@color/accent"
+                android:dividerHeight="0.2dp"
+                android:background="@color/white_transparent"/>
+        </FrameLayout>
+    </LinearLayout>
+
+
+
+</android.support.v7.widget.CardView>

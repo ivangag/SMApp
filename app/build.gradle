@@ -1,0 +1,105 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22"
+
+    defaultConfig {
+        applicationId "org.symptomcheck.capstone"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 2
+        versionName "1.2"
+
+        // Enabling multidex support.
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    configurations {
+        // all*.exclude group: 'com.android.support', module: 'support-v4'
+    }
+
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
+
+}
+
+dependencies {
+    compile 'com.android.support:multidex:1.0.0'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+    compile 'com.google.guava:guava:18.0'
+    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:support-v13:21.0.0'
+    compile 'com.squareup.picasso:picasso:2.3.4'
+    compile 'de.greenrobot:eventbus:2.2.1'
+    compile 'com.google.android.gms:play-services:7.0.0'
+    compile 'com.squareup.retrofit:retrofit:1.7.1'
+    compile 'commons-io:commons-io:2.4'
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5'
+    ///****** date4j. It's an alternative to Date, Calendar, and related Java classes.
+    //The main goals of date4j are:
+    //      easy manipulation of dates/times in the Gregorian calendar (the civil calendar used in almost all countries).
+    //      easy storage and retrieval of such dates/times from a relational database.
+    //      a simplified model of civil timekeeping, similar to the model used by many databases.
+    compile 'com.darwinsys:hirondelle-date4j:1.5.1'
+    ///*****CardsLib dependencies
+    //Core
+    compile 'com.github.gabrielemariotti.cards:cardslib-core:2.0.1'
+    //Optional for built-in cards
+    compile 'com.github.gabrielemariotti.cards:cardslib-cards:2.0.1'
+    //Optional for RecyclerView
+    compile 'com.github.gabrielemariotti.cards:cardslib-recyclerview:2.0.1'
+    //Optional for staggered grid view
+    compile 'com.github.gabrielemariotti.cards:cardslib-extra-staggeredgrid:2.0.1'
+    //Optional for drag and drop
+    compile 'com.github.gabrielemariotti.cards:cardslib-extra-dragdrop:2.0.1'
+    ///****FAB library
+    //compile 'com.shamanland:fab:0.0.6'
+    ///**** Other FAB library
+    //compile 'com.melnykov:floatingactionbutton:1.1.0'
+    ///****RoundedImageView
+    compile 'com.makeramen:roundedimageview:1.5.0'
+    ///***CircularFloatingActionMenu
+    //compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
+    //Navigation Drawer Activity with material design style and simplified methods
+    //compile 'it.neokree:MaterialNavigationDrawer:1.2.9'
+
+    //Material Navigation Drawer
+    compile 'com.heinrichreimersoftware.materialdrawer:library:2.0'
+    //compile project(":material-drawer-library-release-1.4")
+    // Material Material StyledDialogs
+    //compile 'com.avast:android-styled-dialogs:2.0.1'
+
+    // Material Dialogs (another!)
+    compile 'com.afollestad:material-dialogs:0.6.4.6'
+
+    // FAB with menu and label
+    compile 'com.getbase:floatingactionbutton:1.9.0'
+
+    // Android PagerSlidingTabStrip (default Material Design)
+    compile 'com.jpardogo.materialtabstrip:library:1.0.8'
+
+
+    compile 'com.jakewharton:butterknife:6.0.0'
+
+    compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
+
+    //A simple charting library for Android, supporting line-, bar-, scatter-, candlestick- and piecharts,
+    // as well as scaling, dragging, selecting and animations. Supporting Android 2.2 (API level 8) and upwards.
+    compile 'org.quanqi:mpandroidchart:1.7.5'
+
+    //The MaterialDrawer library aims to provide the easiest possible implementation of a navigation drawer
+    compile('com.mikepenz.materialdrawer:library:2.5.5@aar') {
+        transitive = true
+    }
+}

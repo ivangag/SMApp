@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    <style name="AppTheme" parent="android:Theme.Material.Light">
+    </style>-->
+
+
+
+
+    <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <!-- Required for pre-Lollipop. -->
+        <item name="overlapAnchor">false</item>
+        <!-- Required for Lollipop. -->
+        <item name="android:overlapAnchor">false</item>
+    </style>
+    <!--<style name="AppTheme.Fab" parent="FloatingActionButton">-->
+        <!--<item name="floatingActionButtonColor">@color/accent</item>-->
+    <!--</style>-->
+</resources>
