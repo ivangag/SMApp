@@ -28,13 +28,10 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -51,14 +48,10 @@ import com.activeandroid.query.Update;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.common.collect.Lists;
-import com.heinrichreimersoftware.materialdrawer.DrawerView;
-import com.heinrichreimersoftware.materialdrawer.structure.DrawerItem;
-import com.heinrichreimersoftware.materialdrawer.structure.DrawerProfile;
 import com.makeramen.RoundedTransformationBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.model.PrimaryDescriptionDrawerItem;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -79,14 +72,12 @@ import org.symptomcheck.capstone.fragments.IFragmentListener;
 import org.symptomcheck.capstone.fragments.MedicinesFragment;
 import org.symptomcheck.capstone.fragments.PatientsFragment;
 import org.symptomcheck.capstone.model.Doctor;
-import org.symptomcheck.capstone.model.Patient;
 import org.symptomcheck.capstone.model.PatientExperience;
 import org.symptomcheck.capstone.model.UserInfo;
 import org.symptomcheck.capstone.model.UserType;
 import org.symptomcheck.capstone.preference.UserPreferencesManager;
 import org.symptomcheck.capstone.utils.BuildInfo;
 import org.symptomcheck.capstone.utils.Constants;
-import org.symptomcheck.capstone.utils.DateTimeUtils;
 import org.symptomcheck.capstone.utils.NotificationHelper;
 
 import java.lang.reflect.Method;
@@ -268,24 +259,27 @@ public class MainActivityDrawerPenz extends ActionBarActivity implements ICardEv
         for(DrawerItemHelper item : mDrawerItemTitles) {
             if (!item.isInFixedList()) {
                 mDrawer.addDrawerItems(new PrimaryDescriptionDrawerItem()
-                                .withIcon(getResources().getDrawable(item.getImage()))
-                                .withName(item.getTitle())
-                                .withDescription(item.getExtra_info())
-                                .withIdentifier((int) item.getPosition())
-                                .withSelectedIconColor(getResources().getColor(R.color.accent))
-                                .withTintSelectedIcon(true)
+                        .withIcon(getResources().getDrawable(item.getImage()))
+                        .withName(item.getTitle())
+                        .withDescription(item.getExtra_info())
+                        .withIdentifier((int) item.getPosition())
+                        .withSelectedIconColor(getResources().getColor(R.color.accent))
+                        .withTintSelectedIcon(true)
+                        .withCheckable(item.isCheckable())
                 );
             } else {
                 mDrawer.addDrawerItems(new SecondaryDrawerItem()
-                                .withIcon(getResources().getDrawable(item.getImage()))
-                                .withName(item.getTitle())
-                                .withIdentifier((int) item.getPosition())
-                                .withSelectedIconColor(getResources().getColor(R.color.accent))
-                                .withTintSelectedIcon(true)
+                        .withIcon(getResources().getDrawable(item.getImage()))
+                        .withName(item.getTitle())
+                        .withIdentifier((int) item.getPosition())
+                        .withSelectedIconColor(getResources().getColor(R.color.accent))
+                        .withTintSelectedIcon(true)
                 );
             }
 
         }
+        //mDrawer.withCloseOnClick(false);
+
 
         Drawable avatar = null;
         if (mUser.getUserType().equals(UserType.DOCTOR)) {
@@ -411,7 +405,7 @@ public class MainActivityDrawerPenz extends ActionBarActivity implements ICardEv
                     new DrawerItemHelper (getResources().getString(R.string.app_info),
                             "V" + BuildInfo.get().getAppVersion(this),
                             R.drawable.ic_info_outline_grey600_18dp,
-                            CASE_SHOW_APP_VERSION,false,true));
+                            CASE_SHOW_APP_VERSION,false,false));
 
         } catch (Exception e) {
             Toast.makeText(this, "Picasso error:" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
@@ -1067,21 +1061,45 @@ public class MainActivityDrawerPenz extends ActionBarActivity implements ICardEv
 
     class DrawerItemHelper {
 
-        private boolean mNeedDivider;
+        private boolean mIsCheckable;
         private String mTitle;
-        private String mExtra_info;
+        private String mDescription;
         private long mPosition;
         private int mImage;
         private boolean mInFixedList;
 
+        public DrawerItemHelper(){}
+
         public DrawerItemHelper(String title, String extra_info, int image,
-                                long position, boolean needDivider, boolean inFixedList){
+                                long position, boolean isCheckable, boolean inFixedList){
             mTitle = title;
-            mExtra_info = extra_info;
+            mDescription = extra_info;
             mPosition = position;
             mImage = image;
-            mNeedDivider = needDivider;
+            mIsCheckable = isCheckable;
             mInFixedList = inFixedList;
+        }
+
+        public DrawerItemHelper withTitle(String title){
+            mTitle = title;
+            return this;
+        }
+        public DrawerItemHelper withDescription(String description){
+            mDescription = description;
+            return this;
+        }
+
+        public DrawerItemHelper withPosition(long position){
+            mPosition = position;
+            return this;
+        }
+        public DrawerItemHelper withIsInFixedList(boolean isInFixedList){
+            mInFixedList = isInFixedList;
+            return this;
+        }
+        public DrawerItemHelper withCheckable(boolean checkable){
+            mIsCheckable = checkable;
+            return this;
         }
 
         public String getTitle() {
@@ -1089,7 +1107,7 @@ public class MainActivityDrawerPenz extends ActionBarActivity implements ICardEv
         }
 
         public String getExtra_info() {
-            return mExtra_info;
+            return mDescription;
         }
 
         public long getPosition() {
@@ -1100,13 +1118,14 @@ public class MainActivityDrawerPenz extends ActionBarActivity implements ICardEv
             return mImage;
         }
 
-        public boolean isNeedDivider() {
-            return mNeedDivider;
+        public boolean isCheckable() {
+            //return mIsCheckable;
+            return false;
         }
 
         public boolean isInFixedList(){
-            return false;
-            //return mInFixedList;
+            //return false;
+            return mInFixedList;
         }
     }
 

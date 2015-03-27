@@ -45,12 +45,13 @@ import android.widget.Toast;
 
 import com.activeandroid.content.ContentProvider;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.interfaces.OnChartGestureListener;
-import com.github.mikephil.charting.interfaces.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.Legend;
+import com.github.mikephil.charting.listener.OnChartGestureListener;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.Highlight;
 
 import org.symptomcheck.capstone.App;
 import org.symptomcheck.capstone.R;
@@ -148,7 +149,7 @@ public class CheckInFragmentRecyclerCardView extends BaseFragment
         mChart.setUsePercentValues(true);
         mChart.setCenterText(mPatientOwner.getLastName() + "'s \n" + "Check-Ins");
         mChart.setCenterTextSize(14f);
-        mChart.setDescriptionTextSize(10f);
+        mChart.setDescriptionTextSize(13f);
         
         // radius of the center hole in percent of maximum radius
         mChart.setHoleRadius(45f);
@@ -156,16 +157,13 @@ public class CheckInFragmentRecyclerCardView extends BaseFragment
 
         // enable / disable drawing of x- and y-values
         //mChart.setDrawYValues(false);
-        mChart.setDrawXValues(false);
-
-
-
+        mChart.setDrawSliceText(false);
 
         mChart.setClickable(true);
         mChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"mChart Clicked",Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "mChart Clicked", Toast.LENGTH_SHORT).show();
                 CheckInFragmentRecyclerCardView.this.OnFilterData(Constants.STRINGS.EMPTY);
             }
         });
@@ -185,7 +183,7 @@ public class CheckInFragmentRecyclerCardView extends BaseFragment
             @Override
             public void onChartSingleTapped(MotionEvent motionEvent) {
                 //if(mChart.isSelected()){
-                    CheckInFragmentRecyclerCardView.this.OnFilterData(Constants.STRINGS.EMPTY);
+                CheckInFragmentRecyclerCardView.this.OnFilterData(Constants.STRINGS.EMPTY);
                 //}
                 //Toast.makeText(CheckInFragmentRecyclerCardView.this.getActivity(),"mChart onChartSingleTapped",Toast.LENGTH_SHORT).show();
             }
@@ -201,18 +199,18 @@ public class CheckInFragmentRecyclerCardView extends BaseFragment
 
         mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
-            public void onValueSelected(Entry entry, int i) {
-                //Toast.makeText(root.getContext(),"Value selected " + entry.toString() + "-" + i,Toast.LENGTH_SHORT).show();
+            public void onValueSelected(Entry entry, int dataSetIndex, Highlight h) {
                 CheckInFragmentRecyclerCardView.this.OnFilterData(PAIN_LEVELS[entry.getXIndex()].toString());
             }
 
             @Override
             public void onNothingSelected() {
-                //Toast.makeText(root.getContext(),"onNothingSelected",Toast.LENGTH_SHORT).show();
                 CheckInFragmentRecyclerCardView.this.OnFilterData(Constants.STRINGS.EMPTY);
             }
         });
+
         Legend l = mChart.getLegend();
+        l.setTextSize(9f);
         l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
     }
 
@@ -239,10 +237,8 @@ public class CheckInFragmentRecyclerCardView extends BaseFragment
         //CheckIn.getAllByPatientAndPainStatus(mPatientOwner,PainLevel.WELL_CONTROLLED);
         for(int i = 0; i < count; i++) {
             final PainLevel painLevel = PAIN_LEVELS[i];
-            //xVals.add("entry" + (i+1));
             xVals.add(painLevel.toString());
             final int val = CheckIn.getAllByPatientAndPainStatus(mPatientOwner,painLevel).size();
-            //entries1.add(new Entry((float) (Math.random() * 60) + 40, i));
             entries1.add(new Entry((float)val, i));
         }
 
@@ -251,7 +247,8 @@ public class CheckInFragmentRecyclerCardView extends BaseFragment
         ds1.setSliceSpace(2f);
 
         PieData d = new PieData(xVals, ds1);
-
+        d.setDrawValues(true);
+        d.setValueTextSize(12f);
         return d;
     }
 

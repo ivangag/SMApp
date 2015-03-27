@@ -130,7 +130,7 @@ public class CheckInRecyclerCursorAdapter extends
         final String itemId = String.valueOf(holder.getLayoutPosition());
         final boolean isExpandAreaVisible =  holder.viewCheckInExpandableArea.getVisibility() == View.VISIBLE;
 
-        final boolean animate = true;
+        final boolean animate = false;
         if(mExpandedPositions.contains(itemId) && !isExpandAreaVisible){
             doExpand(originalExpandAreaHeight,animate,holder);
             Log.d(TAG, String.format("handleTogglingExpandedAreaHolder=>Expand ItemId:%s", itemId));
@@ -165,7 +165,7 @@ public class CheckInRecyclerCursorAdapter extends
 
         public CheckInViewHolder(View v) {
             super(v);
-            this.setIsRecyclable(false);
+            //this.setIsRecyclable(false);
             vCheckInStatus =  (TextView) v.findViewById(R.id.txtViewCheckInPainLevel);
             vCheckInTime = (TextView)  v.findViewById(R.id.txtViewCheckInTime);
             viewCheckInExpandableArea =  v.findViewById(R.id.viewCheckInDetails);
@@ -372,6 +372,8 @@ public class CheckInRecyclerCursorAdapter extends
 
         CheckInViewHolder holder = new CheckInViewHolder(v);
         holder.viewCheckInHeader.setOnClickListener(this);
+        Log.d(TAG, String.format("onCreateViewHolder=> ItemId:%d OldPosition:%d CurrentPosition:%d. ExpandedArea:%s",
+                holder.getItemId(), holder.getOldPosition(), holder.getLayoutPosition(), traceVisibility(holder.viewCheckInExpandableArea)));
         return holder;
     }
 }

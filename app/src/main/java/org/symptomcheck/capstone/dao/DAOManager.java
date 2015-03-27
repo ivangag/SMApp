@@ -34,7 +34,6 @@ import org.symptomcheck.capstone.model.QuestionOnlineWrapper;
 import org.symptomcheck.capstone.model.UserInfo;
 import org.symptomcheck.capstone.provider.ActiveContract;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,7 +123,7 @@ public class DAOManager {
                     checkIn.patient = patient;
                     //checkIn.setNeedSync(needSync ? 1 : 0);
                     for (Question question : checkIn.getQuestions()) {
-                        question.checkIn = checkIn;
+                        question.setCheckIn(checkIn);
                         questions.add(question);
                     }
                 }

@@ -47,7 +47,7 @@ public class Question extends Model implements IModelBuilder{
 	private QuestionType questionType;
 
     @Column(name = "CheckIn")
-    public transient CheckIn checkIn;
+	private transient CheckIn checkIn;
 
 
     public Question(){}
@@ -130,5 +130,13 @@ public class Question extends Model implements IModelBuilder{
         }
         return medicationTime;
     }
+
+	public CheckIn getCheckIn() {
+		return checkIn;
+	}
+
+	public void setCheckIn(CheckIn checkIn) {
+		this.checkIn = checkIn;
+	}
 }
 
