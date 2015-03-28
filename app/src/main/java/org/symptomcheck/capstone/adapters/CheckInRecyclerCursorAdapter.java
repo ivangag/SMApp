@@ -40,7 +40,6 @@ public class CheckInRecyclerCursorAdapter extends
     private int lastPosition = -1;
     private List<String> mExpandedPositions = Lists.newArrayList();
     private List<String> mCollapsedPositions = Lists.newArrayList();
-    private int mOriginalLayoutBottomHeight;
     private int originalExpandAreaHeight;
 
     @Override
@@ -223,7 +222,7 @@ public class CheckInRecyclerCursorAdapter extends
 /*        @Override
         public void onClick(View viewExpandableArea) {
             //vh.isExpandCollapsingRequested = true;
-            CheckInViewHolder holder = (CheckInViewHolder) viewExpandableArea.getTag();
+            DoctorViewHolder holder = (DoctorViewHolder) viewExpandableArea.getTag();
             holder.setIsRecyclable(false);
             final String position = String.valueOf(holder.getLayoutPosition());
             final boolean isExpandAreaVisible =  holder.viewCheckInExpandableArea.getVisibility() == View.VISIBLE;
