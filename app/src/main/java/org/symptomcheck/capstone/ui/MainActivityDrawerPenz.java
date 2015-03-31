@@ -66,6 +66,7 @@ import org.symptomcheck.capstone.dao.DAOManager;
 import org.symptomcheck.capstone.fragments.CheckInFragmentRecyclerCardView;
 import org.symptomcheck.capstone.fragments.CheckInOnlineFragment;
 import org.symptomcheck.capstone.fragments.DoctorFragment;
+import org.symptomcheck.capstone.fragments.DoctorFragmentRecycler;
 import org.symptomcheck.capstone.fragments.ExperiencesFragment;
 import org.symptomcheck.capstone.fragments.ICardEventListener;
 import org.symptomcheck.capstone.fragments.IFragmentListener;
@@ -595,7 +596,7 @@ public class MainActivityDrawerPenz extends ActionBarActivity implements ICardEv
                 fragment = CheckInOnlineFragment.newInstance();
                 break;
             case PATIENT_DOCTORS:
-                fragment = new DoctorFragment();
+                fragment = new DoctorFragmentRecycler();
                 break;
             case PATIENT_MEDICINES:
                 fragment = MedicinesFragment.newInstance(ownerId);

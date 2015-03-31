@@ -80,8 +80,8 @@
             android:id="@+id/viewDivider"
             android:layout_margin="8dp"
             android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@color/Primary_Grey_100"
+            android:layout_height="1dp"
+            android:background="@color/accent"
             >
         </View>
 
@@ -102,6 +102,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:visibility="visible"
+                android:background="?android:attr/selectableItemBackground"
                 app:riv_corner_radius="10dip"
                 app:riv_border_width="2dip"
                 app:riv_border_color="@color/icons"
