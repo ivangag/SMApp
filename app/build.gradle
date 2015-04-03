@@ -39,11 +39,11 @@ dependencies {
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'com.google.guava:guava:18.0'
     compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'com.android.support:support-v13:21.0.0'
+    compile 'com.android.support:support-v13:21.0.3'
     compile 'com.squareup.picasso:picasso:2.3.4'
     compile 'de.greenrobot:eventbus:2.2.1'
     compile 'com.google.android.gms:play-services:7.0.0'
-    compile 'com.squareup.retrofit:retrofit:1.7.1'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'commons-io:commons-io:2.4'
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5'
     ///****** date4j. It's an alternative to Date, Calendar, and related Java classes.
@@ -68,7 +68,7 @@ dependencies {
     ///**** Other FAB library
     //compile 'com.melnykov:floatingactionbutton:1.1.0'
     ///****RoundedImageView
-    compile 'com.makeramen:roundedimageview:1.5.0'
+    compile 'com.makeramen:roundedimageview:2.0.1'
     ///***CircularFloatingActionMenu
     //compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     //Navigation Drawer Activity with material design style and simplified methods
@@ -81,13 +81,13 @@ dependencies {
     //compile 'com.avast:android-styled-dialogs:2.0.1'
 
     // Material Dialogs (another!)
-    compile 'com.afollestad:material-dialogs:0.6.4.6'
+    compile 'com.afollestad:material-dialogs:0.6.7.0'
 
     // FAB with menu and label
     compile 'com.getbase:floatingactionbutton:1.9.0'
 
     // Android PagerSlidingTabStrip (default Material Design)
-    compile 'com.jpardogo.materialtabstrip:library:1.0.8'
+    compile 'com.jpardogo.materialtabstrip:library:1.0.9'
 
 
     compile 'com.jakewharton:butterknife:6.0.0'
@@ -100,7 +100,7 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v2.0.8'
 
     //The MaterialDrawer library aims to provide the easiest possible implementation of a navigation drawer
-    compile('com.mikepenz.materialdrawer:library:2.5.5@aar') {
+    compile('com.mikepenz.materialdrawer:library:2.7.0@aar') {
         transitive = true
     }
 }

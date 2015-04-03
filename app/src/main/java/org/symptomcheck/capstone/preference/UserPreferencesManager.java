@@ -81,11 +81,13 @@ public class UserPreferencesManager {
        int hour = 8;
        String hourStr = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(KEY_CHECK_IN_START, Constants.STRINGS.EMPTY);
-        if(!hourStr.isEmpty()
-            && hourStr.contains(":")){
-            try {
-                hour = Integer.valueOf(hourStr.substring(0, hourStr.indexOf(':')));
-            }catch (Exception ignored){
+        if (hourStr != null) {
+            if(!hourStr.isEmpty()
+                && hourStr.contains(":")){
+                try {
+                    hour = Integer.valueOf(hourStr.substring(0, hourStr.indexOf(':')));
+                }catch (Exception ignored){
+                }
             }
         }
         return hour;
@@ -94,11 +96,13 @@ public class UserPreferencesManager {
         int minute = 0;
         String minuteStr = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(KEY_CHECK_IN_START, Constants.STRINGS.EMPTY);
-        if(!minuteStr.isEmpty()
-                && minuteStr.contains(":")){
-            try {
-                minute = Integer.valueOf(minuteStr.substring(minuteStr.indexOf(':') + 1));
-            }catch (Exception ignored){
+        if (minuteStr != null) {
+            if(!minuteStr.isEmpty()
+                    && minuteStr.contains(":")){
+                try {
+                    minute = Integer.valueOf(minuteStr.substring(minuteStr.indexOf(':') + 1));
+                }catch (Exception ignored){
+                }
             }
         }
         return minute;
@@ -113,8 +117,10 @@ public class UserPreferencesManager {
         int times = DEFAULT_CHECK_IN_TIMES;
         String str = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(KEY_CHECK_IN_FREQ, Constants.STRINGS.EMPTY);
-        if(!str.isEmpty()){
-            times = Integer.valueOf(str);
+        if (str != null) {
+            if(!str.isEmpty()){
+                times = Integer.valueOf(str);
+            }
         }
         return times;
     }
@@ -128,36 +134,16 @@ public class UserPreferencesManager {
         long minutes = SyncUtils.SYNC_FREQUENCY;
         String minuteStr = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(KEY_SYNC_FREQ, Constants.STRINGS.EMPTY);
-        if(!minuteStr.isEmpty()){
-            try {
-                minutes = Integer.valueOf(minuteStr) * 60;
-            }catch (Exception ignored){
+        if (minuteStr != null) {
+            if(!minuteStr.isEmpty()){
+                try {
+                    minutes = Integer.valueOf(minuteStr) * 60;
+                }catch (Exception ignored){
+                }
             }
         }
         return minutes;
     }
-
-    /*
-    public String getLoginUsername(Context context){
-       return PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(USERNAME_LOGIN, "");
-    }
-
-    public String getLoginPassword(Context context){
-       return PreferenceManager.getDefaultSharedPreferences(context)
-                .getString(PASSWORD_LOGIN, "");
-    }
-
-
-    public void setLoginUsername(Context context, String username) {
-        PreferenceManager.getDefaultSharedPreferences(context).edit()
-                .putString(USERNAME_LOGIN, username).commit();
-    }
-    public void setLoginPassword(Context context, String password) {
-        PreferenceManager.getDefaultSharedPreferences(context).edit()
-                .putString(PASSWORD_LOGIN, password).commit();
-    }
-    */
 
     public void setLatestCheckinSubmission(Context context, String time){
         PreferenceManager.getDefaultSharedPreferences(context).edit()

@@ -162,13 +162,15 @@ public class LoginActivity extends ActionBarActivity { //TODO#BPR_3
         final String password;
         boolean skipCheckField = false;
         if (UserPreferencesManager.get().getLoginRememberMe(this)
-                && UserPreferencesManager.get().isLogged(this)) {
+                && UserPreferencesManager.get().isLogged(this)
+                && (!UserPreferencesManager.get().getBearerToken(this).equals(Constants.STRINGS.EMPTY))) {
             email = password = Constants.STRINGS.EMPTY;
             //password = "" ;
             skipCheckField = true;
         } else {
             email = mEmailView.getText().toString();
             password = mPasswordView.getText().toString();
+            UserPreferencesManager.get().setLogged(getApplicationContext(),false);
         }
 
         boolean cancel = false;

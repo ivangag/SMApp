@@ -48,10 +48,10 @@ import com.activeandroid.query.Update;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.common.collect.Lists;
-import com.makeramen.RoundedTransformationBuilder;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
-import com.mikepenz.materialdrawer.model.PrimaryDescriptionDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -63,9 +63,8 @@ import org.symptomcheck.capstone.R;
 import org.symptomcheck.capstone.alarms.SymptomAlarmRequest;
 import org.symptomcheck.capstone.bus.DownloadEvent;
 import org.symptomcheck.capstone.dao.DAOManager;
-import org.symptomcheck.capstone.fragments.CheckInFragmentRecyclerCardView;
+import org.symptomcheck.capstone.fragments.CheckInFragmentRecycler;
 import org.symptomcheck.capstone.fragments.CheckInOnlineFragment;
-import org.symptomcheck.capstone.fragments.DoctorFragment;
 import org.symptomcheck.capstone.fragments.DoctorFragmentRecycler;
 import org.symptomcheck.capstone.fragments.ExperiencesFragment;
 import org.symptomcheck.capstone.fragments.ICardEventListener;
@@ -259,27 +258,27 @@ public class MainActivityDrawerPenz extends ActionBarActivity implements ICardEv
 
         for(DrawerItemHelper item : mDrawerItemTitles) {
             if (!item.isInFixedList()) {
-                mDrawer.addDrawerItems(new PrimaryDescriptionDrawerItem()
-                        .withIcon(getResources().getDrawable(item.getImage()))
-                        .withName(item.getTitle())
-                        .withDescription(item.getExtra_info())
-                        .withIdentifier((int) item.getPosition())
-                        .withSelectedIconColor(getResources().getColor(R.color.accent))
-                        .withTintSelectedIcon(true)
-                        .withCheckable(item.isCheckable())
+                mDrawer.addDrawerItems(new PrimaryDrawerItem()
+                                .withIcon(getResources().getDrawable(item.getImage()))
+                                .withName(item.getTitle())
+                                .withDescription(item.getExtra_info())
+                                .withIdentifier((int) item.getPosition())
+                                .withSelectedIconColor(getResources().getColor(R.color.accent))
+                                .withTintSelectedIcon(true)
+                                .withCheckable(item.isCheckable())
                 );
             } else {
                 mDrawer.addDrawerItems(new SecondaryDrawerItem()
-                        .withIcon(getResources().getDrawable(item.getImage()))
-                        .withName(item.getTitle())
-                        .withIdentifier((int) item.getPosition())
-                        .withSelectedIconColor(getResources().getColor(R.color.accent))
-                        .withTintSelectedIcon(true)
+                                .withIcon(getResources().getDrawable(item.getImage()))
+                                .withName(item.getTitle())
+                                .withIdentifier((int) item.getPosition())
+                                .withSelectedIconColor(getResources().getColor(R.color.accent))
+                                .withTintSelectedIcon(true)
                 );
             }
 
         }
-        //mDrawer.withCloseOnClick(false);
+        mDrawer.withCloseOnClick(false);
 
 
         Drawable avatar = null;
@@ -304,8 +303,9 @@ public class MainActivityDrawerPenz extends ActionBarActivity implements ICardEv
                 .addProfiles(profile)
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
-                    public void onProfileChanged(View view, IProfile iProfile) {
+                    public boolean onProfileChanged(View view, IProfile iProfile, boolean b) {
                         Toast.makeText(getApplicationContext(), iProfile.getName(), Toast.LENGTH_SHORT).show();
+                        return false;
                     }
                 })
                 .build();
@@ -319,9 +319,13 @@ public class MainActivityDrawerPenz extends ActionBarActivity implements ICardEv
                 if ((fragmentDrawerId == CASE_SHOW_PATIENT_LOGOUT)
                         || (fragmentDrawerId == CASE_SHOW_DOCTOR_LOGOUT)) {
                     askForLogout();
+
                 } else if(fragmentDrawerId != CASE_SHOW_APP_VERSION){
                     selectDrawerItem(fragmentDrawerId);
                     mDrawerResult.setSelectionByIdentifier(fragmentDrawerId,false);
+                    mDrawerResult.closeDrawer();
+                } else {
+
                 }
                 
             }
@@ -590,7 +594,7 @@ public class MainActivityDrawerPenz extends ActionBarActivity implements ICardEv
                 break;
             case PATIENT_CHECKINS: //TODO#FDAR_10
                 //fragment = CheckInFragment.newInstance(ownerId);
-                fragment = CheckInFragmentRecyclerCardView.newInstance(ownerId);
+                fragment = CheckInFragmentRecycler.newInstance(ownerId);
                 break;
             case PATIENT_ONLINE_CHECKINS:
                 fragment = CheckInOnlineFragment.newInstance();

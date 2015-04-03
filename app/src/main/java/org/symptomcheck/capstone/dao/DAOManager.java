@@ -128,7 +128,9 @@ public class DAOManager {
                     }
                 }
                 final long countCheckIns =  (new ActiveHandler<CheckIn>().saveItems(checkIns));
-                final long countQuestions = (new ActiveHandler<Question>().saveItems(questions));
+                if(countCheckIns > 0) {
+                    final long countQuestions = (new ActiveHandler<Question>().saveItems(questions));
+                }
                 //result = needSync ? (countCheckIns > 0) : ((countCheckIns > 0) && (countQuestions > 0));
                 result = countCheckIns > 0;
             }

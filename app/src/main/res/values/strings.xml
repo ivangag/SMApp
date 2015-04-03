@@ -143,6 +143,7 @@
     <string name="title_bad_experience_notification_info">Take care of your Patients</string>
     <string name="checkins_header_info">Check-Ins History</string>
     <string name="doctors_header">Doctors</string>
+    <string name="doctor_patient">Doctor's %s</string>
     <string name="doctors_header_info">Your Doctors List</string>
     <string name="medicines_header_info">Your Pain Medications</string>
     <string name="picasso">picasso</string>
@@ -155,5 +156,6 @@
     <string name="login_alert">Login Alert</string>
     <string name="text_click_more_info_checkin">Click to have more information about Check-In</string>
     <string name="app_info">App Info</string>
+    <string name="text_checkin_submission">Submitted on</string>
 
 </resources>

@@ -313,7 +313,7 @@ public class CheckInRecyclerCursorAdapter extends
             //if(holder.mListView != null) {
                 holder.mListView.setAdapter(new MedicationQuestionAdapter(mContext, MedicationQuestionItem.makeItemByCheckinQuestions(checkIn.getItemsQuestion()), false));
             //}
-            holder.vCheckInTime.setText("Submitted on " + DateTimeUtils.convertEpochToHumanTime(checkIn.getIssueDateTime(), Constants.TIME.DEFAULT_FORMAT));
+            holder.vCheckInTime.setText(mContext.getString(R.string.text_checkin_submission) + DateTimeUtils.convertEpochToHumanTime(checkIn.getIssueDateTime(), Constants.TIME.DEFAULT_FORMAT));
 
             /*
             final Patient patient = Patient.getByMedicalNumber(mPatientOwner.getMedicalRecordNumber());

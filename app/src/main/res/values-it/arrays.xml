@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="patient_fragments_array">
+        <item>Check-Ins</item>
+        <item>Dottori</item>
+        <item>Medicine</item>
+        <!--  <item>Settings</item>
+         <item>Logout</item>-->
+    </string-array>
+
+    <string-array
+        name="doctor_fragments_array">
+        <item>Pazienti</item>
+        <item>Gravi situazioni paziente</item>
+        <item>Cerca i Check-Ins dei pazienti</item>
+        <!--  <item>Settings</item>
+        <item>Logout</item>-->
+    </string-array>
+</resources>

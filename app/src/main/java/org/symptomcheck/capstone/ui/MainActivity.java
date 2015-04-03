@@ -53,7 +53,7 @@ import com.google.common.collect.Lists;
 import com.heinrichreimersoftware.materialdrawer.DrawerView;
 import com.heinrichreimersoftware.materialdrawer.structure.DrawerItem;
 import com.heinrichreimersoftware.materialdrawer.structure.DrawerProfile;
-import com.makeramen.RoundedTransformationBuilder;
+import com.makeramen.roundedimageview.*;
 //import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 //import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import com.squareup.picasso.Transformation;
@@ -63,10 +63,8 @@ import org.symptomcheck.capstone.R;
 import org.symptomcheck.capstone.alarms.SymptomAlarmRequest;
 import org.symptomcheck.capstone.bus.DownloadEvent;
 import org.symptomcheck.capstone.dao.DAOManager;
-import org.symptomcheck.capstone.fragments.CheckInFragment;
-import org.symptomcheck.capstone.fragments.CheckInFragmentRecyclerCardView;
+import org.symptomcheck.capstone.fragments.CheckInFragmentRecycler;
 import org.symptomcheck.capstone.fragments.CheckInOnlineFragment;
-import org.symptomcheck.capstone.fragments.DoctorFragment;
 import org.symptomcheck.capstone.fragments.DoctorFragmentRecycler;
 import org.symptomcheck.capstone.fragments.ExperiencesFragment;
 import org.symptomcheck.capstone.fragments.ICardEventListener;
@@ -607,7 +605,7 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
                 break;
             case PATIENT_CHECKINS: //TODO#FDAR_10
                 //fragment = CheckInFragment.newInstance(ownerId);
-                fragment = CheckInFragmentRecyclerCardView.newInstance(ownerId);
+                fragment = CheckInFragmentRecycler.newInstance(ownerId);
                 break;
             case PATIENT_ONLINE_CHECKINS:
                 fragment = CheckInOnlineFragment.newInstance();

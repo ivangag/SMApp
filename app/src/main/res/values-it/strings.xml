@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Symptom Check</string>
+    <string name="loading">In attesa di sincronizzazione…</string>
+    <string name="description_refresh">Aggiorna</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="remember_me">Ricordami</string>
+    <string name="header_text_symptom_patient">PAZIENTE</string>
+    <string name="error_incorrect_credentials">Le credenziali di accesso non sono corrette</string>
+    <string name="login_text">Accesso in corso…</string>
+    <string name="symptom_title_login">ACCESSO SYMPTOM CHECK</string>
+    <string name="title_activity_login">Accesso</string>
+    <string name="title_activity_main">Controlla il sintomo</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_username">Utente</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Accedi</string>
+    <string name="action_sign_in_short">Accedi</string>
+    <string name="plus_sign_out">Cambia utente Google+</string>
+    <string name="plus_disconnect">Disconnetti da Google+</string>
+    <string name="error_invalid_email">Questo indirizzo email non è valido</string>
+    <string name="error_invalid_password">Questa password è troppo corta</string>
+    <string name="error_incorrect_password">Questa password non è corretta</string>
+    <string name="error_field_required">Questo campo è richiesto</string>
+    <string name="item_1">oggetto1</string>
+    <string name="checkin_reminder_title">Controlla il sintomo Check-In</string>
+    <string name="checkin_reminder_text">Prego clicca qui per cominciare il Check-In</string>
+    <string name="title_check_in_flow">CheckIn</string>
+    <string name="action_accept_checkin">Invia il Check-In</string>
+    <string name="patient_header">Paziente</string>
+    <string name="patients_header">Pazienti</string>
+    <string name="doctor_header">Dottore</string>
+    <string name="error_login_header">Errore di Accesso\n%s</string>
+    <string name="checkin_header">Check-In dati</string>
+    <string name="action_search">Cerca</string>
+    <string name="share">Condividi</string>
+    <string name="action_take_photo">Fai una foto alla tua gola</string>
+    <string name="pain_status">Stato del dolore</string>
+    <string name="feed_status">Stato dell\'appetito</string>
+    <string name="medicine_title_question">Hai preso il tuo %s?</string>
+    <string name="pain_title_question">Quanto è grande il tuo dolore alla bocca/gola?</string>
+    <string name="feed_status_title_question">Il dolore ti impedisce di mangiare/bere?</string>
+    <string name="no_response">NO</string>
+    <string name="yes_response">SI</string>
+    <string name="alert_dialog_yes">SI</string>
+    <string name="alert_dialog_ok">OK</string>
+    <string name="alert_dialog_cancel">Cancella</string>
+    <string name="alert_dialog_title_checkin_submission">Confermi questo Check-In?</string>
+    <string name="title_check_in_confirmation">Clicca qui per confermare il Check-In</string>
+    <string name="medicines_header">Medicine</string>
+    <string name="title_activity_settings">Controlla il sintomo Impostazioni</string>
+
+    <!-- Preference resources -->
+    <string name="pref_title_start_check_in_time">Ora di inizio</string>
+    <string name="pref_title_start_sync_time">Prima sincronizzazione…</string>
+    <string name="pref_header_check_in">Promemoria Check-In</string>
+    <string name="pref_title_sync_only_wifi">Solo Wifi</string>
+    <string name="pref_description_sync_only_wifi">Abilita sincronizzazioni periodiche solo se connesso via Wifi</string>
+    <string name="pref_header_data_sync">Data &amp; sincronizzazione</string>
+    <string name="pref_title_sync_frequency">Frequenza della sincronizzazione</string>
+
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minuti</item>
+        <item>30 minuti</item>
+        <item>1 ora</item>
+        <item>3 ore</item>
+        <item>6 ore</item>
+        <item>Mai</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_checkin_frequency">Frequenza promemoria dei Check-In</string>
+
+    <string-array name="pref_checkin_frequency_titles">
+        <item>4 volte al giorno</item>
+        <item>5 volte al giorno</item>
+        <item>6 volte al giorno</item>
+    </string-array>
+    <string-array name="pref_checkin_frequency_values">
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string name="pref_header_notifications">Notifiche</string>
+    <string name="pref_title_new_message_notifications">Assistenza servizio messaggi</string>
+    <string name="pref_title_ringtone">Suoneria</string>
+    <string name="pref_ringtone_silent">Silenzioso</string>
+    <string name="pref_title_vibrate">Vibrazione</string>
+    <string name="logout_question">Vuoi fare logout?</string>
+    <string name="hint_new_medication">Inserisci il nome di una nuova medicina</string>
+    <string name="txt_error_medication_exists">Questa medicina è già stata assegnata al paziente</string>
+    <string name="txt_error_medication_empty">Il nome della medicina non può essere vuoto</string>
+    <string name="delete_medicine">Cancella</string>
+    <string name="txt_cards_empty_list">Nessun risultato</string>
+    <string name="txt_loading_progress">Sto caricando…</string>
+    <string name="checkins_header">Check-Ins</string>
+    <string name="medicine_header">Medicine</string>
+    <string name="txt_syncing_progress">Sincronizzazione in corso…</string>
+    <string name="pref_title_checkin_next_time">Prossimo Check-In</string>
+
+    <item name="txt_medication_delete" type="id">Cancella Medicina</item>
+
+    <string name="title_activity_patient_experiences">Situazione paziente</string>
+    <string name="bad_experiences_header">Situazioni gravi</string>
+    <string name="experience_header">Situazione paziente</string>
+    <string name="exit_question">Sicuro di voler uscire?</string>
+    <string name="alert_dialog_no">No</string>
+    <string name="pref_summary_new_message_notifications">Permetti l\'invio/ricezione di messaggi importanti</string>
+    <string name="text_bad_experience_notification">La situazione di uno o più pazienti richiede la tua attenzione</string>
+    <string name="title_bad_experience_notification">Situazione pazienti grave</string>
+    <string name="text_ok_go_to_all_experiences">Vai a tutti i report della situazione paziente</string>
+    <string name="medical_number">Numero medico</string>
+    <string name="unique_doctor_id">Identificativo Dottore</string>
+    <string name="severe">Dolore acuto</string>
+    <string name="severe_or_moderate">Dolore acuto o moderato</string>
+    <string name="cannot_eat">Non posso mangiare/bere</string>
+    <string name="txt_card_info_button">Clicca per più informazioni</string>
+    <string name="call_other_user_header">Chiama</string>
+    <string name="send_email_other_user_header">Contatta via E-mail</string>
+    <string name="txt_checkin_reminder_ticker">E\' il momento di fare il Check-In periodico</string>
+    <string name="add_new_medicine">Aggiungi medicinali</string>
+    <string name="action_logout">Esci</string>
+    <string name="action_settings_info">Cambia le tue preferenze</string>
+    <string name="action_logout_info">Esci dall\'applicazione</string>
+    <string name="doctor_patient">Dottori di %s</string>
+    <string name="patients_header_info">Guarda la lista dei pazienti</string>
+    <string name="title_search_checkin_online">Cerca i dai dei Check-In dei pazienti</string>
+    <string name="title_search_checkin_online_info">Cerca sul server</string>
+    <string name="title_bad_experience_notification_info">Prenditi cura dei tuoi pazienti</string>
+    <string name="checkins_header_info">Storico dei Check-Ins</string>
+    <string name="doctors_header">Dottori</string>
+    <string name="doctors_header_info">La lista dei tuoi dottori</string>
+    <string name="medicines_header_info">I tuoi medicinali</string>
+    <string name="drawer_open">Apri il menu</string>
+    <string name="drawer_close">Chiudi il menu</string>
+    <string name="title_activity_sample_pager_sliding">SamplePagerSlidingActivity</string>
+    <string name="health_status">Stato di salute</string>
+    <string name="session_expired">La tua sessione è scaduta. Prego inserisci di nuovo le credenziali</string>
+    <string name="login_alert">Allerta Login</string>
+    <string name="text_click_more_info_checkin">Clicca per avere più informazioni sul Check-In</string>
+    <string name="app_info">Informazioni</string>
+
+    <string name="text_checkin_submission">Inserito il </string>
+
+</resources>

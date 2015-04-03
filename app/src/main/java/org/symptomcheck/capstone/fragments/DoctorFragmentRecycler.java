@@ -154,7 +154,8 @@ public class DoctorFragmentRecycler extends BaseFragment implements LoaderManage
 
         if(mPatientOwner != null){
             title =// mPatientOwner.getFirstName() + " " +
-                    mPatientOwner.getLastName() + "'s " + getString(R.string.doctors_header);
+                    //mPatientOwner.getLastName() + "'s " +
+                            getString(R.string.doctors_header);
         }
         return title;
     }
@@ -293,12 +294,6 @@ public class DoctorFragmentRecycler extends BaseFragment implements LoaderManage
                     // SyncService.CreateSyncAccount(). This will be used to query the system to
                     // see how the sync status has changed.
                     Account account = GenericAccountService.GetAccount();
-                    if (account == null) {
-                        // GetAccount() returned an invalid value. This shouldn't happen, but
-                        // we'll set the status to "not refreshing".
-                        setRefreshActionButtonState(false);
-                        return;
-                    }
 
                     // Test the ContentResolver to see if the sync adapter is active or pending.
                     // Set the state of the refresh button accordingly.
