@@ -23,13 +23,10 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.CursorLoader;
-import android.content.Intent;
 import android.content.Loader;
 import android.content.SyncStatusObserver;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,10 +38,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FilterQueryProvider;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.activeandroid.content.ContentProvider;
 
@@ -52,9 +45,7 @@ import org.symptomcheck.capstone.App;
 import org.symptomcheck.capstone.R;
 import org.symptomcheck.capstone.SyncUtils;
 import org.symptomcheck.capstone.accounts.GenericAccountService;
-import org.symptomcheck.capstone.adapters.CheckInRecyclerCursorAdapter;
 import org.symptomcheck.capstone.adapters.DoctorRecyclerCursorAdapter;
-import org.symptomcheck.capstone.cardsui.CustomExpandCard;
 import org.symptomcheck.capstone.dao.DAOManager;
 import org.symptomcheck.capstone.model.Doctor;
 import org.symptomcheck.capstone.model.Patient;
@@ -63,12 +54,6 @@ import org.symptomcheck.capstone.model.UserType;
 import org.symptomcheck.capstone.provider.ActiveContract;
 import org.symptomcheck.capstone.utils.Constants;
 
-import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardCursorAdapter;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.CardThumbnail;
-import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
-import it.gmariotti.cardslib.library.internal.base.BaseCard;
 import it.gmariotti.cardslib.library.view.CardListView;
 
 //TODO#BPR_6 Doctor Fragment Interface Screen
@@ -155,7 +140,8 @@ public class DoctorFragmentRecycler extends BaseFragment implements LoaderManage
         if(mPatientOwner != null){
             title =// mPatientOwner.getFirstName() + " " +
                     //mPatientOwner.getLastName() + "'s " +
-                            getString(R.string.doctors_header);
+                          //String.format(getString(R.string.doctor_patient),mPatientOwner.getLastName());
+                          getString(R.string.doctors_header);
         }
         return title;
     }

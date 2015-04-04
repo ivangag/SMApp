@@ -36,10 +36,10 @@
             android:layout_marginEnd="4dp"
             android:layout_marginTop="10dp"
             android:id="@+id/imageDoctorAvatar"
-            android:src="@drawable/ic_doctor"
+            android:src="@drawable/ic_doctor_photo_test"
             android:scaleType="centerCrop"
             android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_height="64dp"
             android:visibility="visible"
             app:riv_corner_radius="10dip"
             app:riv_border_width="2dip"
@@ -57,7 +57,11 @@
             android:gravity="center_vertical"
             android:textSize="@dimen/abc_text_size_medium_material"
             android:textColor="@color/accent"
-            android:layout_margin="5dp"/>
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            />
 
         <TextView
             android:id="@+id/txtViewDoctorId"
@@ -70,10 +74,105 @@
             android:gravity="center_vertical"
             android:textSize="@dimen/abc_text_size_small_material"
             android:textColor="@color/secondary_text"
-            android:layout_margin="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
             />
-        </RelativeLayout>
 
+        </RelativeLayout>
+        <View
+            android:id="@+id/viewDivider1"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/Primary_Grey_300"
+            >
+        </View>
+        <LinearLayout
+            android:id="@+id/viewDoctorExtraInfo"
+            android:background="@color/icons"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                >
+            <com.makeramen.roundedimageview.RoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:clickable="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:id="@+id/imageDoctorCallInfo"
+                android:src="@drawable/ic_call_grey600_24dp"
+                android:scaleType="centerCrop"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:visibility="visible"
+                android:background="@drawable/button_effect"
+                app:riv_corner_radius="10dip"
+                app:riv_border_width="0dip"
+                app:riv_border_color="@color/icons"
+                app:riv_mutate_background="true"
+                app:riv_tile_mode="clamp"
+                app:riv_oval="true" />
+
+            <TextView
+                android:id="@+id/txtPhoneInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="14dp"
+                android:layout_toRightOf="@+id/imageDoctorCallInfo"
+                android:layout_toEndOf="@+id/imageDoctorCallInfo"
+                android:text="+39011000000"
+                android:textSize="@dimen/abc_text_size_small_material"
+                android:textColor="@color/secondary_text"
+                />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.makeramen.roundedimageview.RoundedImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:clickable="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:id="@+id/imageDoctorEmailInfo"
+                    android:src="@drawable/ic_email_grey600_24dp"
+                    android:scaleType="centerCrop"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:visibility="visible"
+                    android:background="@drawable/oval_shape"
+                    app:riv_corner_radius="10dip"
+                    app:riv_border_width="0dip"
+                    app:riv_border_color="@color/icons"
+                    app:riv_mutate_background="true"
+                    app:riv_tile_mode="clamp"
+                    app:riv_oval="true" />
+
+                <TextView
+                    android:id="@+id/txtEmailInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="14dp"
+                    android:layout_toRightOf="@+id/imageDoctorEmailInfo"
+                    android:layout_toEndOf="@+id/imageDoctorEmailInfo"
+                    android:text="mydoctor@email.com"
+                    android:textColorLink="@color/Secondary_Blue_700"
+                    android:textSize="@dimen/abc_text_size_small_material"
+                    android:textColor="@color/secondary_text"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
 
 
         <View
@@ -137,7 +236,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginEnd="8dp"
                 android:id="@+id/imageDoctorCall"
-                android:src="@drawable/ic_call_grey600_24dp"
+                android:src="@drawable/ic_access_alarm_grey600_24dp"
                 android:scaleType="centerCrop"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
