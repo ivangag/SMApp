@@ -306,7 +306,8 @@ public class CheckInFragmentRecycler extends BaseFragment
         String title = TITLE_NONE;
         if(mPatientOwner != null){
             title = //mPatientOwner.getFirstName() + " " +
-                    mPatientOwner.getLastName() + "'s " + getString(R.string.checkins_header);
+                    //mPatientOwner.getLastName() + "'s " + getString(R.string.checkins_header);
+                    getString(R.string.checkins_header);
         }
         return title;
     }

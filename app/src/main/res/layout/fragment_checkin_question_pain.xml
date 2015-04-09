@@ -44,7 +44,7 @@
                 android:layout_gravity="center"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:contentDescription="@string/picasso" />
+                 />
         </LinearLayout>
 
     </LinearLayout>
@@ -103,7 +103,7 @@
             android:layout_gravity="center"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:contentDescription="@string/picasso" />
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -120,7 +120,7 @@
             android:layout_marginStart="8dp"
             android:layout_width="48dp"
             android:layout_height="fill_parent"
-            android:contentDescription="@string/picasso" />
+            />
         <TextView
             android:id="@+id/txt_check_in_confirm_submission"
             android:layout_gravity="fill"

@@ -28,13 +28,10 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -42,6 +39,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,12 +48,14 @@ import com.activeandroid.query.Update;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.common.collect.Lists;
-import com.heinrichreimersoftware.materialdrawer.DrawerView;
-import com.heinrichreimersoftware.materialdrawer.structure.DrawerItem;
-import com.heinrichreimersoftware.materialdrawer.structure.DrawerProfile;
-import com.makeramen.roundedimageview.*;
-//import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
-//import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.squareup.picasso.Transformation;
 
 import org.symptomcheck.capstone.App;
@@ -87,6 +87,9 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
+//import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+//import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+
 //import android.widget.SearchView;
 
 //TODO#BPR_3 Main Screen Activity
@@ -101,7 +104,7 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
     private int[] mDrawerImagesResources;
 
     private CharSequence mTitle;
-    private ActionBarDrawerToggle mDrawerToggle;
+//    private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private TextView mTextViewHeaderUser;
     private TextView mTextViewUserDetails;
@@ -122,17 +125,17 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
         PATIENT_MEDICINES,
         LOGOUT,
     }
-    private static final long CASE_SHOW_PATIENT_DOCTORS     = 1;
-    private static final long CASE_SHOW_PATIENT_CHECKINS    = 2;
-    private static final long CASE_SHOW_PATIENT_MEDICINES   = 3;
-    private static final long CASE_SHOW_PATIENT_SETTINGS    = 4;
-    private static final long CASE_SHOW_PATIENT_LOGOUT      = 5;
+    private static final int CASE_SHOW_PATIENT_DOCTORS     = 1;
+    private static final int CASE_SHOW_PATIENT_CHECKINS    = 2;
+    private static final int CASE_SHOW_PATIENT_MEDICINES   = 3;
+    private static final int CASE_SHOW_PATIENT_SETTINGS    = 4;
+    private static final int CASE_SHOW_PATIENT_LOGOUT      = 5;
     private static final int CASE_SHOW_APP_VERSION          = 6;
-    private static final long CASE_SHOW_DOCTOR_PATIENTS     = 7;
-    private static final long CASE_SHOW_DOCTOR_PATIENTS_EXPERIENCES     = 8;
-    private static final long CASE_SHOW_DOCTOR_PATIENTS_ONLINE_CHECKINS = 9;
-    private static final long CASE_SHOW_DOCTOR_SETTINGS                 = 10;
-    private static final long CASE_SHOW_DOCTOR_LOGOUT                   = 11;
+    private static final int CASE_SHOW_DOCTOR_PATIENTS     = 7;
+    private static final int CASE_SHOW_DOCTOR_PATIENTS_EXPERIENCES     = 8;
+    private static final int CASE_SHOW_DOCTOR_PATIENTS_ONLINE_CHECKINS = 9;
+    private static final int CASE_SHOW_DOCTOR_SETTINGS                 = 10;
+    private static final int CASE_SHOW_DOCTOR_LOGOUT                   = 11;
 
 
     private UserInfo mUser;
@@ -146,8 +149,9 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
     private View mFloatingActionButton;
     //private FloatingActionMenu mFabActionsMenu;
     private FloatingActionsMenu mFabActionsMenu;
-    private DrawerLayout mDrawerLayout;
-    private DrawerView mDrawer;
+
+    private Drawer mDrawer;
+    private Drawer.Result mDrawerResult;
 
     private View mFabTakePicture;
     private View mFabSubmitCheckin;
@@ -159,12 +163,10 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
 
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_materialdrawer);
+        setContentView(R.layout.activity_main_materialdrawer_penz);
         mToolBarImageView = (ImageView) findViewById(R.id.imageToolBar);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        mDrawer = (DrawerView) findViewById(R.id.drawer_material);
+//        mDrawer = (DrawerView) findViewById(R.id.drawer_material);
 
         //mFloatingActionButton = (View) findViewById(R.id.fab_main);
         mFabActionsMenu = (FloatingActionsMenu) findViewById(R.id.fab_multiple_actions);
@@ -179,33 +181,30 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
         setSupportActionBar(toolbar);
         toolbarTitle = (TextView) findViewById(R.id.txt_toolbar_title);
 
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,
-                mDrawerLayout,
-                toolbar,
-                R.string.drawer_open,
-                R.string.drawer_close
-        ){
-
-            public void onDrawerClosed(View view) {
-                invalidateOptionsMenu();
-            }
-
-            public void onDrawerOpened(View drawerView) {
-//                if (mFabActionsMenu.isOpen()) {
-//                    mFabActionsMenu.close(true);
+//        mDrawerToggle = new ActionBarDrawerToggle(
+//                this,
+//                mDrawerLayout,
+//                toolbar,
+//                R.string.drawer_open,
+//                R.string.drawer_close
+//        ){
+//
+//            public void onDrawerClosed(View view) {
+//                invalidateOptionsMenu();
+//            }
+//
+//            public void onDrawerOpened(View drawerView) {
+//                if (mFabActionsMenu.isExpanded()) {
+//                    mFabActionsMenu.collapse();
 //                }
-                if (mFabActionsMenu.isExpanded()) {
-                    mFabActionsMenu.collapse();
-                }
+//
+//                invalidateOptionsMenu();
+//            }
+//        };
 
-                invalidateOptionsMenu();
-            }
-        };
-
-        mDrawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.primary_dark));
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerLayout.closeDrawer(mDrawer);
+//        mDrawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.primary_dark));
+//        mDrawerLayout.setDrawerListener(mDrawerToggle);
+//        mDrawerLayout.closeDrawer(mDrawer);
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -251,31 +250,38 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
     }
 
     public void updateDrawer() {
-        mDrawer.clearItems();
 
-        for(DrawerItemHelper item : mDrawerItemTitles){
-            if(item.isNeedDivider()){
-                mDrawer.addDivider();
-            }
-            else {
-                if(item.isInFixedList()){
-                    mDrawer.addFixedItem(new DrawerItem()
-                                    .setImage(getResources().getDrawable(item.getImage()))
-                                    .setTextPrimary(item.getTitle())
-                                    .setTextSecondary(item.getExtra_info())
-                                    .setId(item.getPosition())
-                    );
-                }else {
-                    mDrawer.addItem(new DrawerItem()
-                                    .setImage(getResources().getDrawable(item.getImage()), DrawerItem.ICON)
-                                    .setTextPrimary(item.getTitle())
-                                    .setTextMode(DrawerItem.SINGLE_LINE)
-                                    .setTextSecondary(item.getExtra_info())
-                                    .setId(item.getPosition())
-                    );
-                }
-            }
+        if(mDrawer == null){
+            mDrawer = new Drawer()
+                    .withActivity(this)
+                    .withToolbar(toolbar);
         }
+
+
+        for(DrawerItemHelper item : mDrawerItemTitles) {
+            if (!item.isInFixedList()) {
+                mDrawer.addDrawerItems(new PrimaryDrawerItem()
+                                .withIcon(getResources().getDrawable(item.getImage()))
+                                .withName(item.getTitle())
+                                .withDescription(item.getExtra_info())
+                                .withIdentifier((int) item.getPosition())
+                                        //.withSelectedIconColor(getResources().getColor(R.color.accent))
+                                .withTintSelectedIcon(false)
+                                .withCheckable(item.isCheckable())
+                );
+            } else {
+                mDrawer.addDrawerItems(new SecondaryDrawerItem()
+                                .withIcon(getResources().getDrawable(item.getImage()))
+                                .withName(item.getTitle())
+                                .withIdentifier((int) item.getPosition())
+                                        //.withSelectedIconColor(getResources().getColor(R.color.accent))
+                                .withTintSelectedIcon(false)
+                );
+            }
+
+        }
+        mDrawer.withCloseOnClick(false);
+
 
         Drawable avatar = null;
         if (mUser.getUserType().equals(UserType.DOCTOR)) {
@@ -287,63 +293,50 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
         final Bitmap roundedAvatar = BitmapFactory.decodeResource(getResources(),
                 (mUser.getUserType().equals(UserType.DOCTOR) ? R.drawable.ic_doctor : R.drawable.ic_patient));
 
-        mDrawer.addProfile(new DrawerProfile()
-                        .setAvatar(null)
-                        .setRoundedAvatar((BitmapDrawable) avatar)
-                        .setBackground(background)
-                        .setName(mUser.getFirstName() + " " + mUser.getLastName())
-                                //.setDescription(mUser.getUserIdentification())
-                        .setDescription(mDetailUser)
-                                //.removeAvatar()
-                        .setOnProfileClickListener(new DrawerProfile.OnProfileClickListener() {
-                            @Override
-                            public void onClick(DrawerProfile drawerProfile, long l) {
-                                Toast.makeText(getApplicationContext(), drawerProfile.getName() + "-" + drawerProfile.getDescription(), Toast.LENGTH_SHORT).show();
-                            }
-                        })
-        );
 
-        mDrawer.setOnItemClickListener(
-                new DrawerItem.OnItemClickListener() {
+        final IProfile profile = new ProfileDrawerItem()
+                .withName(mUser.getFirstName() + " " + mUser.getLastName())
+                .withEmail(mDetailUser)
+                .withIcon(avatar);
+
+        AccountHeader.Result headerProfile = new AccountHeader()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.mat2)
+                .addProfiles(profile)
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
-                    public void onClick(DrawerItem drawerItem, long fragmentDrawerId, int position) {
-                        if ((fragmentDrawerId == CASE_SHOW_PATIENT_LOGOUT)
-                                || (fragmentDrawerId == CASE_SHOW_DOCTOR_LOGOUT)) {
-                            askForLogout();
-                        } else if(fragmentDrawerId != CASE_SHOW_APP_VERSION){
-                            selectDrawerItem(fragmentDrawerId);
-                            mDrawer.selectItemById(fragmentDrawerId);
-                        }
+                    public boolean onProfileChanged(View view, IProfile iProfile, boolean b) {
+                        Toast.makeText(getApplicationContext(), iProfile.getName(), Toast.LENGTH_SHORT).show();
+                        return false;
                     }
-                });
+                })
+                .build();
+        mDrawer.withAccountHeader(headerProfile);
 
-        mDrawer.setOnFixedItemClickListener(new DrawerItem.OnItemClickListener() {
+        
+        mDrawer.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
             @Override
-            public void onClick(DrawerItem item, long id, int position) {
-                if((id == CASE_SHOW_PATIENT_SETTINGS)
-                        || (id == CASE_SHOW_DOCTOR_SETTINGS)){
-                    openSettings();
-                }else if((id == CASE_SHOW_PATIENT_LOGOUT)
-                        || (id == CASE_SHOW_DOCTOR_LOGOUT)){
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
+                final int fragmentDrawerId = iDrawerItem.getIdentifier();
+                if ((fragmentDrawerId == CASE_SHOW_PATIENT_LOGOUT)
+                        || (fragmentDrawerId == CASE_SHOW_DOCTOR_LOGOUT)) {
                     askForLogout();
-                }
-                else {
-                    if(id != CASE_SHOW_APP_VERSION) {
-                        selectDrawerItem(id);
-                    }}
 
-                if((id != CASE_SHOW_PATIENT_SETTINGS)
-                    && (id != CASE_SHOW_PATIENT_LOGOUT)
-                    && (id != CASE_SHOW_APP_VERSION)
-                    && (id != CASE_SHOW_DOCTOR_LOGOUT)
-                        ){
-                    mDrawer.selectFixedItemById(id);
-                }
-                //Toast.makeText(getApplicationContext(), "Clicked item #" + position + " id #" + id, Toast.LENGTH_SHORT).show();
+                } else if(fragmentDrawerId != CASE_SHOW_APP_VERSION){
+                    mDrawerResult.setSelectionByIdentifier(fragmentDrawerId,false);
+                    mDrawerResult.closeDrawer();
+                    selectDrawerItem(fragmentDrawerId);
+                } else {
 
+                }
+                
             }
         });
+
+        mDrawerResult = mDrawer.build();
+
     }
+    
 
     private void initUserResource() {
         final UserType userType = mUser.getUserType();
@@ -385,10 +378,10 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
             } else if (userType.equals(UserType.PATIENT)) { //TODO#FDAR_1 show details of Patient on the a view in front of the main activity
                 mFabSubmitCheckin.setVisibility(View.VISIBLE);
                 mDrawerItemTitles.add(
-                        new DrawerItemHelper (getResources().getString(R.string.doctors_header),
+                        new DrawerItemHelper(getResources().getString(R.string.doctors_header),
                                 getResources().getString(R.string.doctors_header_info),
                                 R.drawable.ic_people_grey600_48dp,
-                                CASE_SHOW_PATIENT_DOCTORS,false,false));
+                                CASE_SHOW_PATIENT_DOCTORS, false, false));
                 mDrawerItemTitles.add(
                         new DrawerItemHelper (getResources().getString(R.string.checkins_header),
                                 getResources().getString(R.string.checkins_header_info),
@@ -410,16 +403,16 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
                                 getResources().getString(R.string.action_logout_info),
                                 R.drawable.ic_exit_to_app_grey600_48dp,
                                 CASE_SHOW_PATIENT_LOGOUT,false,true));
-                mDetailUser +=
-                        "Born on " + DateTimeUtils.convertEpochToHumanTime(Patient.getByMedicalNumber(mUser.getUserIdentification()).getBirthDate(), "DD/MM/YYYY")
-                                + "\nMedical Number " + mUser.getUserIdentification()
-                ;
+                mDetailUser += "Birthday " + DateTimeUtils.convertEpochToHumanTime(Patient.getByMedicalNumber(mUser.getUserIdentification()).getBirthDate(), "DD/MM/YYYY")
+                                + "- ID " + mUser.getUserIdentification();
+
+                //mDetailUser += "Medical Number " + mUser.getUserIdentification();
             }
             mDrawerItemTitles.add(
                     new DrawerItemHelper (getResources().getString(R.string.app_info),
                             "V" + BuildInfo.get().getAppVersion(this),
                             R.drawable.ic_info_outline_grey600_18dp,
-                            CASE_SHOW_APP_VERSION,false,true));
+                            CASE_SHOW_APP_VERSION,false,false));
 
         } catch (Exception e) {
             Toast.makeText(this, "Picasso error:" + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
@@ -439,8 +432,6 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
                 public void onClick(View v) {
                     mFabActionsMenu.collapse();
                     Toast.makeText(getApplicationContext(),"Clicked Write a Message FAB",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, MainActivityDrawerPenz.class);
-                    startActivity(intent);
                 }
             });
         }
@@ -694,7 +685,7 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
         Intent intent = new Intent(this, SettingsActivity.class);
         //startActivity(intent);
         startActivityForResult(intent, SettingsActivity.MODIFY_USER_SETTINGS);
-        mDrawerLayout.closeDrawers();
+//        mDrawerLayout.closeDrawers();
         this.overridePendingTransition(R.anim.enter, R.anim.hold);
         //overridePendingTransition(R.anim.hold, R.anim.abc_fade_in);
     }
@@ -756,14 +747,14 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
+//        mDrawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the mDrawer toggls
-        mDrawerToggle.onConfigurationChanged(newConfig);
+//        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -776,7 +767,7 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        mDrawerLayout.closeDrawers();
+//        mDrawerLayout.closeDrawers();
         //this.setTitle("MainActivity");
     }
 
@@ -875,9 +866,9 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
 
         // The action bar home/up action should open or close the mDrawer.
         // ActionBarDrawerToggle will take care of this.
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+//        if (mDrawerToggle.onOptionsItemSelected(item)) {
+//            return true;
+//        }
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -945,7 +936,7 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
     /**
      * Swaps fragments in the main content view
      */
-    private void selectDrawerItem(long fragmentDrawerId) {
+    private void selectDrawerItem(int fragmentDrawerId) {
         if (mSelectedFragmentPosition != fragmentDrawerId) {
             mPreviousFragment = mCurrentFragment;
             mCurrentFragment = selectFragment(fragmentDrawerId);
@@ -961,14 +952,14 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
         if (mCurrentFragment != null) {
             if (!(mCurrentFragment instanceof DialogFragment)) {
                 // Highlight the selected item, update the mTitle, and close the mDrawer
-                mDrawer.selectItemById(fragmentDrawerId);
+                mDrawerResult.setSelectionByIdentifier(fragmentDrawerId,false);
                 //setTitle(mFragmentTitles[position]);
             } else {
                 askForLogout();
             }
         }
 
-        mDrawerLayout.closeDrawers();
+//        mDrawerLayout.closeDrawers();
         //mDrawerFragment.closeDrawer();
     }
 
@@ -1077,21 +1068,45 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
 
     class DrawerItemHelper {
 
-        private boolean mNeedDivider;
+        private boolean mIsCheckable;
         private String mTitle;
-        private String mExtra_info;
+        private String mDescription;
         private long mPosition;
         private int mImage;
         private boolean mInFixedList;
 
+        public DrawerItemHelper(){}
+
         public DrawerItemHelper(String title, String extra_info, int image,
-                                long position, boolean needDivider, boolean inFixedList){
+                                long position, boolean isCheckable, boolean inFixedList){
             mTitle = title;
-            mExtra_info = extra_info;
+            mDescription = extra_info;
             mPosition = position;
             mImage = image;
-            mNeedDivider = needDivider;
+            mIsCheckable = isCheckable;
             mInFixedList = inFixedList;
+        }
+
+        public DrawerItemHelper withTitle(String title){
+            mTitle = title;
+            return this;
+        }
+        public DrawerItemHelper withDescription(String description){
+            mDescription = description;
+            return this;
+        }
+
+        public DrawerItemHelper withPosition(long position){
+            mPosition = position;
+            return this;
+        }
+        public DrawerItemHelper withIsInFixedList(boolean isInFixedList){
+            mInFixedList = isInFixedList;
+            return this;
+        }
+        public DrawerItemHelper withCheckable(boolean checkable){
+            mIsCheckable = checkable;
+            return this;
         }
 
         public String getTitle() {
@@ -1099,7 +1114,7 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
         }
 
         public String getExtra_info() {
-            return mExtra_info;
+            return mDescription;
         }
 
         public long getPosition() {
@@ -1110,13 +1125,14 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
             return mImage;
         }
 
-        public boolean isNeedDivider() {
-            return mNeedDivider;
+        public boolean isCheckable() {
+            return mIsCheckable;
+            //return false;
         }
 
         public boolean isInFixedList(){
-            return false;
-            //return mInFixedList;
+            //return false;
+            return mInFixedList;
         }
     }
 

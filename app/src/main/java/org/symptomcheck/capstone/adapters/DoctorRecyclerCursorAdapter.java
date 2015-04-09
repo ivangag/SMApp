@@ -2,7 +2,9 @@ package org.symptomcheck.capstone.adapters;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,22 +14,16 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.common.collect.Lists;
 
 import org.symptomcheck.capstone.R;
-import org.symptomcheck.capstone.model.CheckIn;
 import org.symptomcheck.capstone.model.Doctor;
-import org.symptomcheck.capstone.model.FeedStatus;
-import org.symptomcheck.capstone.model.PainLevel;
 import org.symptomcheck.capstone.provider.ActiveContract;
-import org.symptomcheck.capstone.utils.CheckInUtils;
-import org.symptomcheck.capstone.utils.Constants;
-import org.symptomcheck.capstone.utils.DateTimeUtils;
 
+import java.text.BreakIterator;
 import java.util.List;
 
 /**
@@ -37,7 +33,7 @@ public class DoctorRecyclerCursorAdapter extends
         CursorExRecyclerAdapter<DoctorRecyclerCursorAdapter.DoctorViewHolder> implements View.OnClickListener{
 
     private static String TAG = "DoctorRecyclerCursorAdapter";
-    IRecyclerItemToggleListener mListener;
+    IRecyclerItemListener mListener;
     private int lastPosition = -1;
     private List<String> mExpandedPositions = Lists.newArrayList();
     private List<String> mCollapsedPositions = Lists.newArrayList();
@@ -161,22 +157,35 @@ public class DoctorRecyclerCursorAdapter extends
 
         protected TextView mDoctorName;
         protected TextView mDoctorId;
+        protected View mPhoneCallAction;
+        protected View mPhoneCallContainer;
+        protected View mEmailContainer;
+        protected TextView mPhoneNumber;
+        protected TextView mEmail;
+
         public DoctorViewHolder(View v) {
             super(v);
             //this.setIsRecyclable(false);
             mDoctorName = (TextView)v.findViewById(R.id.txtViewDoctorName);
             mDoctorId = (TextView)v.findViewById(R.id.txtViewDoctorId);
+            mPhoneNumber = (TextView)v.findViewById(R.id.txtPhoneInfo);
+            mEmail = (TextView)v.findViewById(R.id.txtEmailInfo);
+            mPhoneCallAction = v.findViewById(R.id.imageDoctorCallInfo);
+            mPhoneCallContainer = v.findViewById(R.id.phoneInfoContainer);
+            mEmailContainer = v.findViewById(R.id.emailInfoContainer);
+
             //viewCheckInHeader.setTag(this);
         }
 
     }
 
-    public interface IRecyclerItemToggleListener{
+    public interface IRecyclerItemListener {
         void onItemToggled(int position);
+        void onDoctorPhoneClicked(Doctor doctor);
     }
 
 
-    public void addEventListener(IRecyclerItemToggleListener listener){
+    public void addEventListener(IRecyclerItemListener listener){
         mListener = listener;
     }
 
@@ -228,12 +237,71 @@ public class DoctorRecyclerCursorAdapter extends
         //this.handleTogglingExpandedAreaHolder(holder);
         final Doctor doctor = Doctor.getByDoctorNumber(cursor.getString(cursor.getColumnIndex(ActiveContract.DOCTORS_COLUMNS.DOCTOR_ID)));
 
+
         if(doctor != null) {
+            final String email = doctor.getEmail();
+            final String phoneNumber = doctor.getPhoneNumber();
+            //final int id = item.getItemId();
             holder.mDoctorName.setText(String.format("%s %s",doctor.getFirstName(),doctor.getLastName()));
             holder.mDoctorId.setText(String.format("%s",doctor.getUniqueDoctorId()));
+            holder.mPhoneNumber.setText(phoneNumber);
+            holder.mEmail.setText(email);
+
+            holder.mPhoneCallAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doPhoneCall(phoneNumber);
+                }
+            });
+            holder.mEmail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doSendEmail(email);
+                }
+            });
+            holder.mPhoneCallContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doPhoneCall(phoneNumber);
+                }
+            });
+            holder.mEmailContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doSendEmail(email);
+                }
+            });
         }
+
         Log.d(TAG, String.format("onBindViewHolderCursor=> DoctorID:%s. CursorPosition:%d. CurrentPosition:%d.",
                 doctor == null ? -1 : doctor.getUniqueDoctorId(), lastPosition, holder.getLayoutPosition()));
+    }
+
+    private void doSendEmail(String email) {
+        if (email != null) {
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.setType("message/rfc822");
+            i.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+            i.putExtra(Intent.EXTRA_SUBJECT, "Your Patient needs you");
+            i.putExtra(Intent.EXTRA_TEXT, "Here write your body message");
+            try {
+                //mContext.startActivity(Intent.createChooser(i, "Send e-mail...").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                mContext.startActivity(i);
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(mContext, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void doPhoneCall(String phoneNumber) {
+        if (phoneNumber != null) {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //callIntent.setData(Uri.parse("tel:123456789"));
+            callIntent.setData(Uri.parse("tel:" + phoneNumber));
+            mContext.startActivity(callIntent);
+        }
     }
 
 

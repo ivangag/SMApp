@@ -185,7 +185,8 @@ public class MedicinesFragment extends BaseFragment implements LoaderManager.Loa
         String title = TITLE_NONE;
         if(mPatientOwner != null){
             title = //mPatientOwner.getFirstName() + " " +
-                    mPatientOwner.getLastName() + "'s " + getString(R.string.medicines_header);
+                    //mPatientOwner.getLastName() + "'s " + getString(R.string.medicines_header);
+                    getString(R.string.medicines_header);
         }
         return title;
     }
