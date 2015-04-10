@@ -79,7 +79,7 @@ public class ReminderSchedulingService extends IntentService {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_doctor)
+                        .setSmallIcon(R.drawable.ic_smapp_launcher_portrait_64)
                         .setContentTitle(getString(R.string.checkin_reminder_title))
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))

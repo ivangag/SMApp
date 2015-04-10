@@ -239,7 +239,7 @@ public class DoctorFragmentRecycler extends BaseFragment implements LoaderManage
         Loader<Cursor> loader = null;
         loader = new CursorLoader(getActivity(),
                 ContentProvider.createUri(Doctor.class, null),
-                null, null, null, ActiveContract.DOCTORS_COLUMNS.FIRST_NAME + " asc"
+                null, null, null, ActiveContract.DOCTORS_COLUMNS.LAST_NAME + " asc"
         );
         return loader;
     }

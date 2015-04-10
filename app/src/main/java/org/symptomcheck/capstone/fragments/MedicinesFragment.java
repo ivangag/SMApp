@@ -55,6 +55,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.content.ContentProvider;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.common.collect.Lists;
 
 import org.symptomcheck.capstone.R;
@@ -139,7 +140,8 @@ public class MedicinesFragment extends BaseFragment implements LoaderManager.Loa
                 SyncUtils.TriggerRefreshPartialLocal(ActiveContract.SYNC_MEDICINES);
                 return true;
             case R.id.action_add_medicines:
-                showInsertNewMedicationDialog(mPatientOwner);
+                //showInsertNewMedicationDialog(mPatientOwner);
+                showInsertNewMedicationDialogMaterial(getActivity(),mPatientOwner);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -368,6 +370,70 @@ public class MedicinesFragment extends BaseFragment implements LoaderManager.Loa
     @Override
     public void OnSearchOnLine(String textToSearch) {
 
+    }
+
+    private void showInsertNewMedicationDialogMaterial(final Context context,final Patient patient) {
+        new MaterialDialog.Builder(context)
+                .title(context.getString(R.string.medicine_header))
+                .customView(R.layout.custom_dialog_add_medication_material, true)
+                        //.content(R.string.exit_question)
+                .positiveText(R.string.alert_dialog_ok)
+                .negativeText(R.string.alert_dialog_cancel)
+                        //.icon(context.getResources().getDrawable(R.drawable.ic_exit_to_app_grey600_48dp))
+                .autoDismiss(false)
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        final EditText entry_medication_name = (EditText) dialog.getCustomView().findViewById(R.id.txt_new_medication);
+                        //final View view_error_message = dialog.getCustomView().findViewById(R.id.layout_medication_error);
+                        final TextView textView_error_message = (TextView) dialog.getCustomView().findViewById(R.id.txt_medication_error);
+
+                        final String medicationName = entry_medication_name.getText().toString().toUpperCase();
+
+                        boolean existMedication = false;
+                        //check if medication exists for the Patient
+                        List<PainMedication> medications = PainMedication.getAll(patient.getMedicalRecordNumber());
+
+                        for (PainMedication medication : medications) {
+                            existMedication = medication.getMedicationName().toUpperCase()
+                                    .equals(medicationName.toUpperCase());
+                            if (existMedication) {
+                                break;
+                            }
+                        }
+                        if (existMedication) {
+                            textView_error_message.setVisibility(View.VISIBLE);
+                            textView_error_message.setText(context.getString(R.string.txt_error_medication_exists));
+
+                        } else if (medicationName.isEmpty()) {
+                            textView_error_message.setVisibility(View.VISIBLE);
+                            textView_error_message.setText(context.getString(R.string.txt_error_medication_empty));
+                        } else {
+                            //Toast.makeText(getActivity(), "New Medication inserted successfully: " + medicationName.toUpperCase(), Toast.LENGTH_SHORT).show();
+                            PainMedication.Builder builder = (new PainMedication.Builder());
+                            executePainMedicationsUpdate(context, builder.setMedicationName(medicationName)
+                                            .setLastTakingDateTime(String.valueOf(DateTime.now(TimeZone.getTimeZone(Constants.TIME.GMT00)).getMilliseconds(TimeZone.getTimeZone(Constants.TIME.GMT00))))
+                                            .setPatientMedicalNumber(mPatientOwner.getMedicalRecordNumber())
+                                            .setProductId(UUID.randomUUID().toString())
+                                            .Build()
+                                    //new PainMedication(medicationName,"",mPatientOwner.getMedicalRecordNumber())
+                            );
+                            dialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onNeutral(MaterialDialog dialog) {
+                        super.onNeutral(dialog);
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 
 
@@ -620,12 +686,14 @@ public class MedicinesFragment extends BaseFragment implements LoaderManager.Loa
             card.mainTitle = cursor.getString(cursor.getColumnIndex(ActiveContract.MEDICINES_COLUMNS.NAME));
             if(painMedication != null) {
 
+                /*
                 if(mPatientOwner != null){
                     card.mainHeader = mPatientOwner.getFirstName() + " " + mPatientOwner.getLastName() + " " + getString(R.string.medicine_header);
                 }else{
                     card.mainHeader = getString(R.string.medicine_header);
-                }
+                }*/
 
+                card.mainHeader = getString(R.string.medicine_header);
 
                 card.secondaryTitle = "Added on " + (painMedication.getLastTakingDateTime().equals(Constants.STRINGS.EMPTY)
                         ? "NA" : DateTimeUtils.convertEpochToHumanTime(painMedication.getLastTakingDateTime(), "YYYY-MM-DD hh:mm"));
@@ -659,13 +727,17 @@ public class MedicinesFragment extends BaseFragment implements LoaderManager.Loa
             TextView mSecondaryTitleTextView = (TextView) parent.findViewById(R.id.carddemo_cursor_main_inner_subtitle);
             mButtonExpandCustom = (ImageButton)parent.findViewById(R.id.card_rds_expand_button_info);
 
-            if (mTitleTextView != null)
+            if (mTitleTextView != null) {
                 mTitleTextView.setText(mainTitle);
 
-            if (mSecondaryTitleTextView != null)
+            }
+
+            if (mSecondaryTitleTextView != null) {
                 mSecondaryTitleTextView.setText(secondaryTitle);
+            }
 
             if(mButtonExpandCustom != null) {
+                mButtonExpandCustom.setVisibility(View.GONE);
                 mButtonExpandCustom.setBackgroundResource(R.drawable.card_menu_button_expand);
 
                 mButtonExpandCustom.setClickable(true);

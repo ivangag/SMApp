@@ -26,6 +26,8 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import org.symptomcheck.capstone.SyncUtils;
 import org.symptomcheck.capstone.dao.DAOManager;
+import org.symptomcheck.capstone.model.Doctor;
+import org.symptomcheck.capstone.model.Patient;
 import org.symptomcheck.capstone.model.UserInfo;
 import org.symptomcheck.capstone.model.UserType;
 import org.symptomcheck.capstone.provider.ActiveContract;
@@ -74,7 +76,7 @@ public class GcmIntentService extends IntentService {
 
                 final UserInfo currentLoggedUser = DAOManager.get().getUser();
                 UserType userOriginMsg = UserType.valueOf(userType);
-                handleTriggerSync(action, userOriginMsg,currentLoggedUser);
+                handleTriggerSync(action, userOriginMsg,userName,currentLoggedUser);
 
                 // Post notification of received message.
                 //NotificationHelper.sendNotification(getApplicationContext(),NOTIFICATION_ID,
@@ -85,15 +87,20 @@ public class GcmIntentService extends IntentService {
         GcmBroadcastReceiver.completeWakefulIntent(intent);
     }
 
-    private void handleTriggerSync(String action, UserType userTypeSender, UserInfo userCurrentlyLogged) {
+    private void handleTriggerSync(String action, UserType userTypeSender, String senderUserName, UserInfo userCurrentlyLogged) {
+        String name  ="";
         switch (userTypeSender){
             //TODO#BPR_1
             case PATIENT:
+                Patient patient = Patient.getByMedicalNumber(senderUserName);
+                if(patient != null){
+                    name = patient.getLastName() + " " + patient.getFirstName();
+                }
                 if(action.equals(GcmConstants.GCM_ACTION_CHECKIN_UPDATE)) { //TODO#FDAR_10 GCM message used to trigger sync and update Check-In Data
                     if((userCurrentlyLogged != null)
                         && !userCurrentlyLogged.getUserType().equals(UserType.PATIENT)) {
                         NotificationHelper.sendNotification(getApplicationContext(),NOTIFICATION_ID,
-                                "Push Notification", "A Patient submitted new Check-In", MainActivity.class,false, Constants.STRINGS.EMPTY,null);
+                                "Push Notification", String.format("The Patient %s submitted new Check-In",name), MainActivity.class,false, Constants.STRINGS.EMPTY,null);
                         SyncUtils.TriggerRefreshPartialLocal(ActiveContract.SYNC_CHECK_IN);
                     }
                 }
@@ -101,10 +108,14 @@ public class GcmIntentService extends IntentService {
             case DOCTOR:
                 //TODO#FDAR_12 GCM message received when Doctor update medicines list. Here we trigger a sync in order to update medicines list and Check-Ins tailored questions
                 if(action.equals(GcmConstants.GCM_ACTION_MEDICATION_UPDATE)){
+                    Doctor doctor = Doctor.getByDoctorNumber(senderUserName);
+                    if(doctor != null){
+                        name = doctor.getLastName() + " " + doctor.getFirstName();
+                    }
                     if((userCurrentlyLogged != null)
                             && !userCurrentlyLogged.getUserType().equals(UserType.DOCTOR)) {
                         NotificationHelper.sendNotification(getApplicationContext(),NOTIFICATION_ID,
-                                "Push Notification", "A Doctor updated your Medicines List", MainActivity.class,false, Constants.STRINGS.EMPTY,null);
+                                "Push Notification", String.format("The Doctor %s updated your Medicines List",name), MainActivity.class,false, Constants.STRINGS.EMPTY,null);
                         SyncUtils.TriggerRefreshPartialLocal(ActiveContract.SYNC_MEDICINES);
                     }
                 }

@@ -1053,7 +1053,7 @@ public class MainActivity extends ActionBarActivity implements ICardEventListene
                     return;
                 }
                 this.mDoubleBackToExitPressedOnce = true;
-                Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.backToExit), Toast.LENGTH_SHORT).show();
 
                 new Handler().postDelayed(new Runnable() {
 

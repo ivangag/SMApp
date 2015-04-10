@@ -217,7 +217,7 @@ public class DoctorFragment extends BaseFragment implements LoaderManager.Loader
         Loader<Cursor> loader = null;
         loader = new CursorLoader(getActivity(),
                 ContentProvider.createUri(Doctor.class, null),
-                null, null, null, ActiveContract.DOCTORS_COLUMNS.FIRST_NAME + " asc"
+                null, null, null, ActiveContract.DOCTORS_COLUMNS.LAST_NAME + " asc"
         );
         return loader;
     }
@@ -465,8 +465,10 @@ public class DoctorFragment extends BaseFragment implements LoaderManager.Loader
             TextView mSecondaryTitleTextView = (TextView) parent.findViewById(R.id.carddemo_cursor_main_inner_subtitle);
             mButtonExpandCustom = (ImageButton)parent.findViewById(R.id.card_rds_expand_button_info);
 
-            if (mTitleTextView != null)
+            if (mTitleTextView != null) {
                 mTitleTextView.setText(mainTitle);
+
+            }
 
             if (mSecondaryTitleTextView != null)
                 mSecondaryTitleTextView.setText(secondaryTitle);

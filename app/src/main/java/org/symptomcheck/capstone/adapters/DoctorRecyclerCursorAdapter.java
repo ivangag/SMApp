@@ -242,7 +242,7 @@ public class DoctorRecyclerCursorAdapter extends
             final String email = doctor.getEmail();
             final String phoneNumber = doctor.getPhoneNumber();
             //final int id = item.getItemId();
-            holder.mDoctorName.setText(String.format("%s %s",doctor.getFirstName(),doctor.getLastName()));
+            holder.mDoctorName.setText(String.format("%s %s",doctor.getLastName(),doctor.getFirstName()));
             holder.mDoctorId.setText(String.format("%s",doctor.getUniqueDoctorId()));
             holder.mPhoneNumber.setText(phoneNumber);
             holder.mEmail.setText(email);
@@ -296,7 +296,7 @@ public class DoctorRecyclerCursorAdapter extends
 
     private void doPhoneCall(String phoneNumber) {
         if (phoneNumber != null) {
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //callIntent.setData(Uri.parse("tel:123456789"));
             callIntent.setData(Uri.parse("tel:" + phoneNumber));

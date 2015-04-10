@@ -75,7 +75,7 @@ public class SettingsActivity extends ActionBarActivity {
     public static boolean mIsSettingsModified;
     private Toolbar toolbar;
     private TextView toolbarTitle;
-    private RoundedImageView mToolBarImageView;
+    private ImageView mToolBarImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +88,7 @@ public class SettingsActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         toolbarTitle = (TextView) findViewById(R.id.txt_toolbar_title);
-        mToolBarImageView = (RoundedImageView) findViewById(R.id.imageToolBar);
+        mToolBarImageView = (ImageView) findViewById(R.id.imageToolBar);
         // enable ActionBar app icon to behave as action to toggle nav drawer
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -101,7 +101,7 @@ public class SettingsActivity extends ActionBarActivity {
         // Display the fragment as the main content.
         if(mToolBarImageView != null ){
             mToolBarImageView.setVisibility(View.GONE);
-            mToolBarImageView.setOval(false);
+            //mToolBarImageView.setOval(false);
             Picasso.with(this).load(R.drawable.ic_action_settings)
                     //.resize(96, 96)
                     //.centerCrop()

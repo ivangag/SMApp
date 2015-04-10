@@ -80,7 +80,7 @@ public class NotificationHelper {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_doctor)
+                        .setSmallIcon(R.drawable.ic_smapp_launcher_portrait_64)
                         .setContentTitle(titleMsg)
                         .setTicker(msg)
                         .setStyle(new NotificationCompat.BigTextStyle()
@@ -179,7 +179,7 @@ public class NotificationHelper {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_doctor)
+                        .setSmallIcon(R.drawable.ic_smapp_launcher_portrait_64)
                         .setContentTitle(context.getString(R.string.checkin_reminder_title))
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))

@@ -155,5 +155,6 @@
     <string name="text_click_more_info_checkin">Click to have more information about Check-In</string>
     <string name="app_info">App Info</string>
     <string name="text_checkin_submission">Submitted on</string>
+    <string name="backToExit">Please click BACK again to exit</string>
 
 </resources>

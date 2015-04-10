@@ -244,7 +244,7 @@ public  abstract class BaseFragment extends Fragment {
                                                 ActiveContract.PATIENT_COLUMNS.PATIENT_ID + " LIKE ? OR " +
                                                 ActiveContract.PATIENT_COLUMNS.FIRST_NAME + " LIKE ?",
                                         new String[]{"%" + filterPattern + "%", "%" + filterPattern + "%", "%" + filterPattern + "%"}
-                                        , ActiveContract.PATIENT_COLUMNS.FIRST_NAME + " asc");
+                                        , ActiveContract.PATIENT_COLUMNS.LAST_NAME + " asc");
 
                     break;
                 case FRAGMENT_TYPE_DOCTORS:
@@ -258,7 +258,7 @@ public  abstract class BaseFragment extends Fragment {
                                                 "%" + filterPattern + "%",
                                                 "%" + filterPattern + "%"
                                         }
-                                        , ActiveContract.DOCTORS_COLUMNS.FIRST_NAME + " asc");
+                                        , ActiveContract.DOCTORS_COLUMNS.LAST_NAME + " asc");
                     break;
                 case FRAGMENT_TYPE_CHECKIN:
                     cursor = getActivity().getContentResolver()
@@ -343,12 +343,12 @@ public  abstract class BaseFragment extends Fragment {
                 case FRAGMENT_TYPE_PATIENT:
                     cursor = getActivity().getContentResolver()
                             .query(uriContentProvider,
-                                    ActiveContract.PATIENT_TABLE_PROJECTION, selection, null, ActiveContract.PATIENT_COLUMNS.FIRST_NAME + " asc");
+                                    ActiveContract.PATIENT_TABLE_PROJECTION, selection, null, ActiveContract.PATIENT_COLUMNS.LAST_NAME + " asc");
                     break;
                 case FRAGMENT_TYPE_DOCTORS:
                     cursor = getActivity().getContentResolver()
                             .query(uriContentProvider,
-                                    ActiveContract.DOCTOR_TABLE_PROJECTION, selection, null, ActiveContract.DOCTORS_COLUMNS.FIRST_NAME + " asc");
+                                    ActiveContract.DOCTOR_TABLE_PROJECTION, selection, null, ActiveContract.DOCTORS_COLUMNS.LAST_NAME + " asc");
                     break;
                 case FRAGMENT_TYPE_CHECKIN:
                     cursor = getActivity().getContentResolver()

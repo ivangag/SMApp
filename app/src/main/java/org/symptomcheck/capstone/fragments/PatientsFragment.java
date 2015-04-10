@@ -148,7 +148,8 @@ public class PatientsFragment extends BaseFragment implements LoaderManager.Load
         String title = TITLE_NONE;
         if(mDoctorOwner != null){
             title = //mDoctorOwner.getFirstName() + " " +
-                    mDoctorOwner.getLastName() + "'s " + getString(R.string.patients_header);
+                    //mDoctorOwner.getLastName() + "'s " + getString(R.string.patients_header);
+                   getString(R.string.patients_header);
         }
         return title;
     }
@@ -215,10 +216,10 @@ public class PatientsFragment extends BaseFragment implements LoaderManager.Load
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        Loader<Cursor> loader = null;
+        Loader<Cursor> loader;
         loader = new CursorLoader(getActivity(),
                 mUriContentProvider,
-                null, null, null, ActiveContract.PATIENT_COLUMNS.FIRST_NAME + " asc"
+                null, null, null, ActiveContract.PATIENT_COLUMNS.LAST_NAME + " asc"
         );
         return loader;
     }
@@ -362,7 +363,7 @@ public class PatientsFragment extends BaseFragment implements LoaderManager.Load
                         }
                     }else if(id == R.id.menu_pop_call_patient){
                         if(phoneNumber != null) {
-                            Intent callIntent = new Intent(Intent.ACTION_CALL);
+                            Intent callIntent = new Intent(Intent.ACTION_DIAL);
                             //callIntent.setData(Uri.parse("tel:123456789"));
                             callIntent.setData(Uri.parse("tel:" + phoneNumber));
                             startActivity(callIntent);
@@ -420,8 +421,8 @@ public class PatientsFragment extends BaseFragment implements LoaderManager.Load
         private void setCardFromCursor(PatientCursorCard card,Cursor cursor) {
 
             card.setId(""+cursor.getInt(ID_COLUMN));
-            card.mainTitle = cursor.getString(cursor.getColumnIndex(ActiveContract.PATIENT_COLUMNS.FIRST_NAME))
-                    + " " + cursor.getString(cursor.getColumnIndex(ActiveContract.PATIENT_COLUMNS.LAST_NAME));
+            card.mainTitle = cursor.getString(cursor.getColumnIndex(ActiveContract.PATIENT_COLUMNS.LAST_NAME))
+                    + " " + cursor.getString(cursor.getColumnIndex(ActiveContract.PATIENT_COLUMNS.FIRST_NAME));
             card.secondaryTitle = getString(R.string.medical_number) + ": "
                      + cursor.getString(cursor.getColumnIndex(ActiveContract.PATIENT_COLUMNS.PATIENT_ID))
             //                + " " + cursor.getString(cursor.getColumnIndex(ActiveContract.PATIENT_COLUMNS.BIRTH_DATE))
@@ -475,6 +476,7 @@ public class PatientsFragment extends BaseFragment implements LoaderManager.Load
 
 
             if(mButtonExpandCustom != null) {
+                mButtonExpandCustom.setVisibility(View.GONE);
                 mButtonExpandCustom.setBackgroundResource(R.drawable.card_menu_button_expand);
 
                 mButtonExpandCustom.setClickable(true);

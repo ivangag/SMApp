@@ -157,4 +157,5 @@
     <string name="checkins_online_header">Checkin Remote Search</string>
     <string name="txt_search_online_running">Searching on the Remote Server…</string>
     <string name="txt_cards_online_empty_list">To start Online Search enter Patient FirstName &amp; LastName</string>
+    <string name="backToExit">Cliccare nuovamente per uscire</string>
 </resources>

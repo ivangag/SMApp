@@ -49,7 +49,7 @@ import java.util.List;
 public class PatientExperiencesActivity extends ActionBarActivity {
 
     public final static String PATIENT_ID = "patient_id";
-    public final static String TAG = "PatientExperiencesActivity";
+    public final static String TAG = "PatientExperiences";
     public final static String ACTION_NEW_PATIENT_BAD_EXPERIENCE = "new_bad_experience_patient";
     View viewIntroNewExperienceInfo;
     TextView textViewDetails;
@@ -86,9 +86,9 @@ public class PatientExperiencesActivity extends ActionBarActivity {
                         patient = Patient.getByMedicalNumber(patientExperience.getPatientId());
                         String headStartTime = "[" + DateTimeUtils.convertEpochToHumanTime(patientExperience.getEndExperienceTime(),"YYYY-MM-DD hh:mm") + "]";
                         headStartTime += "\n";
-                        String patientInfo = String.format(String.format("The Patient %s reported a bad experience claiming %d hours of %s",
+                        String patientInfo = String.format("The Patient %s reported a bad experience claiming %d hours of %s",
                                 patient.getFirstName() + " " + patient.getLastName(), patientExperience.getExperienceDuration(),
-                                App.getPatientExperienceTranslation(patientExperience.getExperienceType())));
+                                App.getPatientExperienceTranslation(patientExperience.getExperienceType()));
                         headStartTime += patientInfo + "\n";
                         textViewDetails.append(headStartTime);
                         textViewDetails.append("------------------------------\n");

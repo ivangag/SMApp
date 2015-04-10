@@ -308,7 +308,7 @@ public class CheckInRecyclerCursorAdapter extends
 
         final PainLevel painLevel = Enum.valueOf(PainLevel.class,cursor.getString(cursor.getColumnIndex(ActiveContract.CHECKIN_COLUMNS.PAIN_LEVEL)));
         final FeedStatus feedStatus =  Enum.valueOf(FeedStatus.class, cursor.getString(cursor.getColumnIndex(ActiveContract.CHECKIN_COLUMNS.FEED_STATUS)));
-        holder.vCheckInStatus.setText(painLevel + " - " + feedStatus + String.format(" (%s)",lastPosition));
+        holder.vCheckInStatus.setText(painLevel + " - " + feedStatus);// + String.format(" (%s)",lastPosition));
         if(checkIn != null) {
             //if(holder.mListView != null) {
                 holder.mListView.setAdapter(new MedicationQuestionAdapter(mContext, MedicationQuestionItem.makeItemByCheckinQuestions(checkIn.getItemsQuestion()), false));

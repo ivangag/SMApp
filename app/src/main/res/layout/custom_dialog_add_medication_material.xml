@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_custom_new_medication_dialog"
+    android:layout_marginTop="0dp"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+        <TextView
+            android:textSize="16sp"
+            android:id="@+id/txt_medication_error"
+            android:text="@string/txt_error_medication_exists"
+            android:layout_gravity="fill"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            android:background="@color/Secondary_Red_200"
+            android:textColor="@android:color/white" />
+
+
+            <EditText android:id="@+id/txt_new_medication"
+                android:textSize="14sp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_new_medication"
+                android:textColorHint="@color/secondary_text"
+                android:imeActionId="@+id/new_medication"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionUnspecified"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+</LinearLayout>
