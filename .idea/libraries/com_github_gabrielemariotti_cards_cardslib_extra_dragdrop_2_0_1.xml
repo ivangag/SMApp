@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.github.gabrielemariotti.cards:cardslib-extra-dragdrop-2.0.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/cardslib-extra-dragdrop-2.0.1.aar/ffc22ee9136bfce491fc64682ef1d67f/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/cardslib-extra-dragdrop-2.0.1.aar/ffc22ee9136bfce491fc64682ef1d67f/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.gabrielemariotti.cards/cardslib-extra-dragdrop/2.0.1/880ef20ee80283cf859f58ec9ebfe2195bf928ca/cardslib-extra-dragdrop-2.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

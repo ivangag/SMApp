@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.heinrichreimersoftware.materialdrawer:library-2.1">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-2.1.aar/dbf0268382790f566a1fdacdd730a8f7/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/library-2.1.aar/dbf0268382790f566a1fdacdd730a8f7/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.heinrichreimersoftware.materialdrawer/library/2.1/d78bd6a7686e36bac8bc125fbc54a996800095de/library-2.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

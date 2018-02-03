@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.github.gabrielemariotti.cards:cardslib-extra-staggeredgrid-2.0.1">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/cardslib-extra-staggeredgrid-2.0.1.aar/1483ab927881d55b34cc62edc802e6ad/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/cardslib-extra-staggeredgrid-2.0.1.aar/1483ab927881d55b34cc62edc802e6ad/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.gabrielemariotti.cards/cardslib-extra-staggeredgrid/2.0.1/3e8306c92eb95d9c8759938f454879b807231bf2/cardslib-extra-staggeredgrid-2.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
