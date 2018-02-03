@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="com.github.gabrielemariotti.cards:cardslib-core-2.0.1">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/cardslib-core-2.0.1.aar/2965999fda8f38919342778153ed51c7/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/cardslib-core-2.0.1.aar/2965999fda8f38919342778153ed51c7/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/cardslib-core-2.0.1.aar/fe01d281634f1725d9ab42fc1b7f27d6/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/cardslib-core-2.0.1.aar/fe01d281634f1725d9ab42fc1b7f27d6/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
