@@ -86,6 +86,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/shaders" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/check-manifest" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/lint" />
@@ -98,6 +99,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 27 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -113,6 +115,8 @@
     <orderEntry type="library" name="com.google.android.gms:play-services-base-license-11.8.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-auth-license-11.8.0" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-cast-framework-license-11.8.0" level="project" />
+    <orderEntry type="library" name="com.afollestad.material-dialogs:core-0.9.6.0" level="project" />
+    <orderEntry type="library" name="me.zhanghai.android.materialprogressbar:library-1.4.2" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-plus-11.8.0" level="project" />
     <orderEntry type="library" name="com.mikepenz.materialdrawer:library-2.7.6" level="project" />
     <orderEntry type="library" name="android.arch.lifecycle:runtime-1.0.3" level="project" />
@@ -142,7 +146,6 @@
     <orderEntry type="library" name="com.android.support:support-media-compat-27.0.2" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-auth-11.8.0" level="project" />
     <orderEntry type="library" name="com.nhaarman.listviewanimations:lib-core:3.1.0@jar" level="project" />
-    <orderEntry type="library" name="com.android.support:recyclerview-v7-21.0.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-analytics-impl-11.8.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-v4-27.0.2" level="project" />
     <orderEntry type="library" name="com.android.support:appcompat-v7-27.0.2" level="project" />
@@ -224,6 +227,7 @@
     <orderEntry type="library" name="com.google.android.gms:play-services-cast-11.8.0" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-vision-common-license-11.8.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-config-license-11.8.0" level="project" />
+    <orderEntry type="library" name="com.android.support:recyclerview-v7-27.0.1" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-gass-license-11.8.0" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-awareness-license-11.8.0" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-nearby-11.8.0" level="project" />
